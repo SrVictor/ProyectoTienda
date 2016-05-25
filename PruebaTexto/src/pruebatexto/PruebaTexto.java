@@ -25,7 +25,7 @@ public class PruebaTexto {
         int i = 0;
 
         FileReader myFile = null;
-        try {
+        try {h
 //Leo un Archivo de Texto
             String file = "../FPInstruments/miArchivo.txt";
             myFile = new FileReader(file);
