@@ -26,6 +26,7 @@ public class MenuControlador implements ActionListener {
             SeleccionArticulo sac = new SeleccionArticulo();
             vista.cerrarVentana();
             sac.getSeleccion();
+            System.out.println("A");
         } else if (evento.getActionCommand().equals(MenuPrincipal.BAJAPARTICULO)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.MODIFICARARTICULO)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.IMPORTARARTICULOS)) {
