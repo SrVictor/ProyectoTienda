@@ -38,7 +38,9 @@ public class VisualizarMod {
 
     public static void genArraySeries() throws SQLException {
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Series ;");
-        Serie.getSeries().clear();
+        if (Serie.getSeries()!=null) {
+            Serie.getSeries().clear();
+        }
         while (rs.next()) {
             Articulo articulo = genArticulo(rs.getInt(1));
             Serie serie = new Serie(rs.getInt(2), rs.getInt(3), rs.getInt(1), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
@@ -57,7 +59,7 @@ public class VisualizarMod {
     }
 
     public static Articulo genArticulo(int idArticulo) throws SQLException {
-        System.out.println("idArticulo: "+ idArticulo);
+        System.out.println("idArticulo: " + idArticulo);
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Articulos WHERE idArticulo = " + idArticulo + " ;");
         rs.next();
         Articulo articulo = new Articulo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7));
@@ -67,9 +69,34 @@ public class VisualizarMod {
     public static ArrayList<Integer> genIDArticulos() throws SQLException {
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT idArticulo FROM Articulos ;");
         ArrayList<Integer> idArticulos = new ArrayList<>();
-        while (rs.next()){
-        idArticulos.add(rs.getInt(1));
+        while (rs.next()) {
+            idArticulos.add(rs.getInt(1));
         }
         return idArticulos;
     }
+
+    public static Serie genSerie(int idArticulo) throws SQLException {
+        System.out.println("idArticulo: " + idArticulo);
+        Serie serie = new Serie();
+        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM series WHERE idArticulo = " + idArticulo + " ;");
+        rs.next();
+        serie.setnCapitulos(rs.getInt(2));
+        serie.setnTemporadas(rs.getInt(3));
+        return serie;
+    }
+
+    public static Pelicula genPelicula(int idArticulo) throws SQLException {
+        System.out.println("idArticulo: " + idArticulo);
+        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Articulos WHERE idArticulo = " + idArticulo + " ;");
+        rs.next();
+        Pelicula pelicula = new Pelicula(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7));
+
+        rs = GenConexionMod.ejecutaQuery("SELECT * FROM series WHERE idArticulo = " + idArticulo + " ;");
+        rs.next();
+        pelicula.setNombreDirector(rs.getString(2));
+        pelicula.setPais(rs.getString(3));
+        pelicula.setFechaLanz(rs.getDate(4).toString());
+        return pelicula;
+    }
+
 }

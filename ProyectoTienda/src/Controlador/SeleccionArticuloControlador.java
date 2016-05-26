@@ -9,17 +9,20 @@ import Modelo.*;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SeleccionArticuloControlador implements ActionListener {
 
     private SeleccionArticulo vistaSeleccion;
     private AltaArticulo vistaArticulo;
+    private ModificarArticulo modificarArticulo;
     private static String menu;
     private static String seleccion;
 
     public SeleccionArticuloControlador(SeleccionArticulo vista) {
         this.vistaSeleccion = vista;
-
     }
 
     public void actionPerformed(ActionEvent evento) {
@@ -35,9 +38,21 @@ public class SeleccionArticuloControlador implements ActionListener {
             vistaArticulo = new AltaArticulo(seleccion);
             AltaControlador ac = new AltaControlador(vistaArticulo);
             vistaArticulo.setControlador(ac);
-        } else if (menu.equals("Modificar Articulo"))
-         {
 
+        } else if (menu.equals("Modificar Articulo")) {
+            try {
+                if (seleccion.equals("Serie")) {
+                    modificarArticulo = new ModificarArticulo(seleccion, Serie.rellenarComboBoxID());
+                    ModificarControlador mc = new ModificarControlador(modificarArticulo);
+                    modificarArticulo.setControlador(mc);
+                } else if (seleccion.equals("Pelicula")) {
+                    modificarArticulo = new ModificarArticulo(seleccion, Pelicula.rellenarComboBoxID());
+                    ModificarControlador mc = new ModificarControlador(modificarArticulo);
+                    modificarArticulo.setControlador(mc);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(SeleccionArticuloControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package Modelo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 public class Pelicula extends Articulo {
 
@@ -31,6 +32,19 @@ public class Pelicula extends Articulo {
         super(nombre, productora, clasificacion, genero, stock, precio);
     }
 
+    public Pelicula(int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
+        super(idArticulo, nombre, productora, clasificacion, genero, stock, precio);
+    }
+
+    public static JComboBox rellenarComboBoxID() throws SQLException {
+        VisualizarMod.genArrayPeliculas();
+        JComboBox combo = new JComboBox();
+        for (int i = 0; i < peliculas.size(); i++) {
+            combo.addItem(peliculas.get(i).getIdArticulo());
+        }
+        return combo;
+    }
+
     public String getNombreDirector() {
         return nombreDirector;
     }
@@ -45,6 +59,22 @@ public class Pelicula extends Articulo {
 
     public int getDuracion() {
         return duracion;
+    }
+
+    public void setNombreDirector(String nombreDirector) {
+        this.nombreDirector = nombreDirector;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public void setFechaLanz(String fechaLanz) {
+        this.fechaLanz = fechaLanz;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
     }
 
     public static ArrayList<Pelicula> getPeliculas() throws SQLException {

@@ -49,6 +49,11 @@ public class MenuControlador implements ActionListener {
             }
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.MODIFICARARTICULO)) {
+            SeleccionArticuloControlador.setMenu("Modificar Articulo");
+            vistaSeleccion = new SeleccionArticulo();
+            SeleccionArticuloControlador sac = new SeleccionArticuloControlador(vistaSeleccion);
+            vistaSeleccion.setControlador(sac);
+            vistaSeleccion.arranca();
         } else if (evento.getActionCommand().equals(MenuPrincipal.IMPORTARARTICULOS)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.RELLENARSTOCK)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.VENDERARTICULO)) {

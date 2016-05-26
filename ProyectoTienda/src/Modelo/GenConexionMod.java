@@ -79,6 +79,7 @@ public class GenConexionMod {
         ResultSet rs = null;
         try {
             Statement st = GenConexionMod.getConexion().createStatement();
+            System.out.println(sentenciaSQL);
             rs = st.executeQuery(sentenciaSQL);
             System.out.println("Query Correcto");
         } catch (SQLException ex) {
