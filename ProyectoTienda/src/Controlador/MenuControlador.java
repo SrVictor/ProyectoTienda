@@ -5,13 +5,8 @@
  */
 package Controlador;
 
-import Modelo.Articulo;
-import Modelo.GenConexionMod;
-import Vista.AltaArticulo;
-import Vista.BajaArticulo;
-import Vista.Login;
-import Vista.MenuPrincipal;
-import Vista.SeleccionArticulo;
+import Modelo.*;
+import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -23,6 +18,7 @@ public class MenuControlador implements ActionListener {
     private MenuPrincipal vista;
     private SeleccionArticulo vistaSeleccion;
     private BajaArticulo vistaBaja;
+    private RellenarStock vistaRellenar;
 
     public MenuControlador(MenuPrincipal vista) {
         System.out.println("1");
@@ -56,6 +52,14 @@ public class MenuControlador implements ActionListener {
             vistaSeleccion.arranca();
         } else if (evento.getActionCommand().equals(MenuPrincipal.IMPORTARARTICULOS)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.RELLENARSTOCK)) {
+            try {
+                vistaRellenar = new RellenarStock(Articulo.rellenarComboBoxID());
+                RellenarStockControlador rsc = new RellenarStockControlador(vistaRellenar);
+                vistaRellenar.setControlador(rsc);
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } else if (evento.getActionCommand().equals(MenuPrincipal.VENDERARTICULO)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARARTICULOS)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARVENTAS)) {

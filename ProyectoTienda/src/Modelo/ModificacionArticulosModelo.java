@@ -33,9 +33,6 @@ public class ModificacionArticulosModelo {
      * @return true si es exitoso.
      */
     public boolean modificarArticulo(Articulo articulo) {
-        ArrayList<Articulo> articul = new ArrayList<>();
-        articul.add(articulo);
-        Articulo.leerArray(articul);
         try {
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             CallableStatement cs;
