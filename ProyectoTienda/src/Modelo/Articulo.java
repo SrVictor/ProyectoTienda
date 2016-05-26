@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 public class Articulo {
 
@@ -55,6 +56,7 @@ public class Articulo {
         rs.beforeFirst();
         rs.next();
         int idArticulo = rs.getInt(1);
+        System.out.println("idArticulo: " + idArticulo);
         rs.close();
         return idArticulo;
     }
@@ -77,6 +79,15 @@ public class Articulo {
         }
     }
 
+    public static JComboBox rellenarComboBoxID() throws SQLException {
+        ArrayList<Integer> idArticulos = VisualizarMod.genIDArticulos();
+
+        JComboBox combo = new JComboBox();
+        for (int i = 0; i < idArticulos.size(); i++) {
+            combo.addItem(idArticulos.get(i));
+        }
+        return combo;
+    }
 
     public int getIdArticulo() {
         return idArticulo;

@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
  *
  * @author David
  */
-public class PlantillaVista extends JFrame {
+public class PlantillaVista{
+JFrame frame = new JFrame();
 
     public PlantillaVista(){
         
@@ -21,7 +22,7 @@ public class PlantillaVista extends JFrame {
 
 
     public void mostrarInfo(String mensajeError) {
-        JOptionPane.showMessageDialog(this, mensajeError);
+        JOptionPane.showMessageDialog(frame, mensajeError);
     }
 
     public void setControlador() {
@@ -33,11 +34,11 @@ public class PlantillaVista extends JFrame {
     }
     
     public void cerrarVentana(){
-        this.dispose();
+        frame.dispose();
     }
 
     public void arranca() {
-        pack();// coloca los componentes
-        setLocationRelativeTo(null);// centra la ventana en la pantalla
-        setVisible(true);}
+        frame.pack();// coloca los componentes
+        frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
+        frame.setVisible(true);}
     }

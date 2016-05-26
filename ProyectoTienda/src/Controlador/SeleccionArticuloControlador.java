@@ -5,30 +5,48 @@
  */
 package Controlador;
 
-import Modelo.GenConexionMod;
-import Vista.Login;
-import Vista.MenuPrincipal;
-import Vista.SeleccionArticulo;
+import Modelo.*;
+import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SeleccionArticuloControlador implements ActionListener {
 
-    private SeleccionArticulo vista;
+    private SeleccionArticulo vistaSeleccion;
+    private AltaArticulo vistaArticulo;
+    private static String menu;
+    private static String seleccion;
 
     public SeleccionArticuloControlador(SeleccionArticulo vista) {
-        this.vista = vista;
+        this.vistaSeleccion = vista;
 
     }
 
     public void actionPerformed(ActionEvent evento) {
-        if (evento.getActionCommand().equals(vista.SERIE)) {
-            vista.setSeleccion("Serie");
-            vista.cerrarVentana();
-        } else if (evento.getActionCommand().equals(vista.PELICULA)) {
-            vista.setSeleccion("Pelicula");
-            vista.cerrarVentana();
+        if (evento.getActionCommand().equals(vistaSeleccion.SERIE)) {
+            seleccion = "Serie";
+            vistaSeleccion.cerrarVentana();
+        } else if (evento.getActionCommand().equals(vistaSeleccion.PELICULA)) {
+            seleccion = "Pelicula";
+            vistaSeleccion.cerrarVentana();
         }
 
+        if (menu.equals("Alta Articulo")) {
+            vistaArticulo = new AltaArticulo(seleccion);
+            AltaControlador ac = new AltaControlador(vistaArticulo);
+            vistaArticulo.setControlador(ac);
+        } else if (menu.equals("Modificar Articulo"))
+         {
+
+        }
     }
+
+    public static String getSeleccion() {
+        return seleccion;
+    }
+
+    public static void setMenu(String menu) {
+        SeleccionArticuloControlador.menu = menu;
+    }
+
 }

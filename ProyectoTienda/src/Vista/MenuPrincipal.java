@@ -5,28 +5,21 @@
  */
 package Vista;
 
-import Controlador.UsuariosControlador;
-import Modelo.GenConexionMod;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import javax.swing.table.AbstractTableModel;
+import Controlador.*;
+import Modelo.*;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
  * @author David
  */
 public class MenuPrincipal extends PlantillaVista {
-
+    
     public static final String ALTAARTICULO = "Alta Articulo";
     public static final String BAJAPARTICULO = "Baja Articulo";
     public static final String MODIFICARARTICULO = "Modificar Articulo";
+    public static final String RELLENARSTOCK = "Rellenar Stock";
     public static final String VENDERARTICULO = "Vender Articulo";
     public static final String IMPORTARARTICULOS = "Importar Articulos";
     public static final String VISUALIZARARTICULOS = "Visualizar Articulos";
@@ -35,6 +28,7 @@ public class MenuPrincipal extends PlantillaVista {
     private static JButton btnAltaArticulo;
     private static JButton btnBajaArticulo;
     private static JButton btnModificarArticulo;
+    private static JButton btnRellenarStock;
     private static JButton btnVenderArticulo;
     private static JButton btnImportarArticulos;
     private static JButton btnVisualizarArticulos;
@@ -43,10 +37,10 @@ public class MenuPrincipal extends PlantillaVista {
 
     public MenuPrincipal() {
         JPanel mainPanel = new JPanel();
-        
+        frame = new JFrame();
 
         if (GenConexionMod.getUsuario().equals("Gerente")) {
-            mainPanel.setLayout(new GridLayout(8, 1, 5, 5));
+            mainPanel.setLayout(new GridLayout(9, 1, 5, 5));
             btnCrearUsuario = new JButton("Crear Usuario");
             btnCrearUsuario.setActionCommand("Crear Usuario");
             btnAltaArticulo = new JButton("Alta Articulo");
@@ -57,11 +51,14 @@ public class MenuPrincipal extends PlantillaVista {
             btnModificarArticulo.setActionCommand("Modificar Articulo");
             btnImportarArticulos = new JButton("Importar Articulos");
             btnImportarArticulos.setActionCommand("Importar Articulos");
+            btnRellenarStock = new JButton("Rellenar Stock");
+            btnRellenarStock.setActionCommand("Rellenar Stock");
             mainPanel.add(btnCrearUsuario);
             mainPanel.add(btnAltaArticulo);
             mainPanel.add(btnBajaArticulo);
             mainPanel.add(btnModificarArticulo);
             mainPanel.add(btnImportarArticulos);
+            mainPanel.add(btnRellenarStock);
         } else{
             mainPanel.setLayout(new GridLayout(3, 1, 5, 5));
         }
@@ -76,10 +73,11 @@ public class MenuPrincipal extends PlantillaVista {
         mainPanel.add(btnVisualizarArticulos);
         mainPanel.add(btnVisualizarVentas);
 
-        this.add(mainPanel);
+        frame.add(mainPanel);
     }
 
-    public void setControlador(UsuariosControlador escucharBoton) {
+    public void setControlador(MenuControlador escucharBoton) {
+        System.out.println("3");
         btnAltaArticulo.addActionListener(escucharBoton);
         btnBajaArticulo.addActionListener(escucharBoton);
         btnModificarArticulo.addActionListener(escucharBoton);
@@ -88,13 +86,14 @@ public class MenuPrincipal extends PlantillaVista {
         btnVisualizarArticulos.addActionListener(escucharBoton);
         btnVisualizarVentas.addActionListener(escucharBoton);
         btnCrearUsuario.addActionListener(escucharBoton);
+        btnRellenarStock.addActionListener(escucharBoton);
     }
 
     public void arranca() {
-        pack();// coloca los componentes
-        setLocationRelativeTo(null);// centra la ventana en la pantalla
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+        frame.pack();// coloca los componentes
+        frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
 }

@@ -22,7 +22,7 @@ import javax.swing.table.AbstractTableModel;
  * @author David
  */
 public class Login extends PlantillaVista {
-
+    
     public static final String ACEPTAR = "Aceptar";
     public static final String CANCELAR = "Cancelar";
     private static JLabel LNombre;
@@ -33,6 +33,7 @@ public class Login extends PlantillaVista {
     private static JButton btnCancelar;
 
     public Login() {
+        frame = new JFrame();
         JPanel mainPanel = new JPanel();
 
         mainPanel.setLayout(new GridLayout(3, 2, 5, 5));
@@ -40,7 +41,9 @@ public class Login extends PlantillaVista {
         LNombre = new JLabel("Usuario");
         LContrasena = new JLabel("Contraseña");
         TNombre = new JTextField(20);
+        TNombre.setText("Gerente");
         TContrasena = new JTextField(20);
+        TContrasena.setText("gerente");
         btnAceptar = new JButton("Aceptar");
         btnAceptar.setActionCommand("Aceptar");
         btnCancelar = new JButton("Cancelar");
@@ -52,7 +55,7 @@ public class Login extends PlantillaVista {
         mainPanel.add(btnAceptar);
         mainPanel.add(btnCancelar);
 
-        this.add(mainPanel);
+        frame.add(mainPanel);
     }
 
     public String getTNombre() {
@@ -63,17 +66,15 @@ public class Login extends PlantillaVista {
         return TContrasena.getText();
     }
 
-
     public void setControlador(UsuariosControlador escucharBoton) {
         btnAceptar.addActionListener(escucharBoton);
         btnCancelar.addActionListener(escucharBoton);
     }
 
-
     public void arranca() {
-        pack();// coloca los componentes
-        setLocationRelativeTo(null);// centra la ventana en la pantalla
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+        frame.pack();// coloca los componentes
+        frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
-    }
+}

@@ -8,7 +8,7 @@ package Modelo;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 
 /**
  *
@@ -51,7 +51,7 @@ public class VisualizarMod {
         Venta.getVentas().clear();
         while (rs.next()) {
             Articulo articulo = genArticulo(rs.getInt(1));
-            Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getInt(5),rs.getInt(2),articulo.getNombre(),articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
+            Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getInt(5), rs.getInt(2), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
             Venta.anadirVenta(venta);
         }
     }
@@ -60,5 +60,14 @@ public class VisualizarMod {
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Articulos WHERE idArticulo = " + idArticulo + " ;");
         Articulo articulo = new Articulo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
         return articulo;
+    }
+
+    public static ArrayList<Integer> genIDArticulos() throws SQLException {
+        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT idArticulo FROM Articulos ;");
+        ArrayList<Integer> idArticulos = new ArrayList<>();
+        while (rs.next()){
+        idArticulos.add(rs.getInt(1));
+        }
+        return idArticulos;
     }
 }

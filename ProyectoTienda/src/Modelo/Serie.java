@@ -15,6 +15,12 @@ public class Serie extends Articulo {
         this.nTemporadas = nTemporadas;
     }
 
+    public Serie(int nCapitulos, int nTemporadas, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
+        super(nombre, productora, clasificacion, genero, stock, precio);
+        this.nCapitulos = nCapitulos;
+        this.nTemporadas = nTemporadas;
+    }
+
     public int getnCapitulos() {
         return nCapitulos;
     }

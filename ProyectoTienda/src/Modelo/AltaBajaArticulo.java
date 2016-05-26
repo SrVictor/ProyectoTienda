@@ -81,6 +81,7 @@ public class AltaBajaArticulo {
             cs.setDate(4, fecha2);
             cs.setInt(5, pelicula.getDuracion());
             cs.execute();
+            System.out.println("Correcto");
             return true;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -106,6 +107,7 @@ public class AltaBajaArticulo {
             cs.setInt(2, serie.getnCapitulos());
             cs.setInt(3, serie.getnTemporadas());
             cs.execute();
+            System.out.println("Correcto");
             return true;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -150,6 +152,7 @@ public class AltaBajaArticulo {
                 cs.setInt(5, articulos.get(i).getStock());
                 cs.setFloat(6, articulos.get(i).getPrecio());
                 cs.execute();
+                System.out.println("Correcto");
             }
             return true;
 

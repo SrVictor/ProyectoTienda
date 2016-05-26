@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.SeleccionArticuloControlador;
 import Controlador.UsuariosControlador;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -22,14 +23,13 @@ import javax.swing.table.AbstractTableModel;
  * @author David
  */
 public class SeleccionArticulo extends PlantillaVista {
-
     public static final String SERIE = "Serie";
     public static final String PELICULA = "Pelicula";
     private static JButton btnSerie;
     private static JButton btnPelicula;
-    private String seleccion;
 
     public SeleccionArticulo() {
+        frame = new JFrame();
         JPanel mainPanel = new JPanel();
 
         mainPanel.setLayout(new GridLayout(3, 2, 5, 5));
@@ -41,21 +41,16 @@ public class SeleccionArticulo extends PlantillaVista {
         mainPanel.add(btnSerie);
         mainPanel.add(btnPelicula);
 
-        this.add(mainPanel);
+        frame.add(mainPanel);
     }
 
-    public void setControlador(UsuariosControlador escucharBoton) {
+    public void setControlador(SeleccionArticuloControlador escucharBoton) {
         btnSerie.addActionListener(escucharBoton);
         btnPelicula.addActionListener(escucharBoton);
     }
 
-    public String getSeleccion() {
-        return seleccion;
-    }
+    public void cerrarVentana() {
+        frame.dispose();
+    } 
 
-    public void setSeleccion(String seleccion) {
-        this.seleccion = seleccion;
-    }
-    
-    
 }

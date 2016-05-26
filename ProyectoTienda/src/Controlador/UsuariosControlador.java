@@ -26,8 +26,11 @@ public class UsuariosControlador implements ActionListener {
         if (evento.getActionCommand().equals(Login.ACEPTAR)) {
             if (modelo.abrirConexion(vista.getTNombre(), vista.getTContrasena())) {
                 vista.mostrarInfo("Se ha conectado satisfactoriamente");
-                vista2 = new MenuPrincipal();
                 vista.cerrarVentana();
+                
+                MenuControlador mc = new MenuControlador(vista2);
+                vista2 = new MenuPrincipal();
+                vista2.setControlador(mc);
                 vista2.arranca();
             } else {
                 vista.mostrarInfo("No se a podido establecer conexión, comprueba los datos.");
