@@ -21,9 +21,9 @@ import javax.swing.*;
  */
 public class BajaArticulo extends PlantillaVista {
 
-    private JComboBox Jcombo;
+    private static JComboBox Jcombo;
     JFrame frame;
-    JPanel topPanel, panelSerie, panelPelicula, panelBot;
+    JPanel topPanel;
     public static final String ACEPTAR = "Aceptar";
     public static final String CANCELAR = "Cancelar";
     private static JButton btnAceptar;
@@ -34,24 +34,30 @@ public class BajaArticulo extends PlantillaVista {
         frame = new JFrame("Baja Articulo");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.add(construyePanelTop(comboBox));
-    }
+        frame.pack();// coloca los componentes
+        frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
+        frame.setVisible(true);
+}
 
-    JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
+JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
         topPanel = new JPanel();
-        topPanel.setLayout(new GridLayout(4, 1, 5, 5));
+        topPanel.setLayout(new GridLayout(3, 2, 5, 5));
 
         Jcombo = comboBox;
 
         // Accion a realizar cuando el JComboBox cambia de item seleccionado.
         Jcombo.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 int idArticulo = (Integer) Jcombo.getSelectedItem();
                 try {
                     Articulo articulo = VisualizarMod.genArticulo(idArticulo);
-                    Lnombre.setText(articulo.getNombre());
-                } catch (SQLException ex) {
-                    Logger.getLogger(BajaArticulo.class.getName()).log(Level.SEVERE, null, ex);
+                    LnombreD.setText(articulo.getNombre());
+                
+
+} catch (SQLException ex) {
+                    Logger.getLogger(BajaArticulo.class
+.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -65,6 +71,13 @@ public class BajaArticulo extends PlantillaVista {
         topPanel.add(Lnombre);
         topPanel.add(LnombreD);
 
+        btnAceptar = new JButton("Aceptar");
+        btnAceptar.setActionCommand("Aceptar");
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setActionCommand("Cancelar");
+        topPanel.add(btnAceptar);
+        topPanel.add(btnCancelar);
+
         return topPanel;
     }
 
@@ -73,10 +86,8 @@ public class BajaArticulo extends PlantillaVista {
         btnCancelar.addActionListener(escucharBoton);
     }
 
-    public int getJcombo() {
+    public static int getJcombo() {
         return (Integer) Jcombo.getSelectedItem();
     }
-    
-    
 
 }

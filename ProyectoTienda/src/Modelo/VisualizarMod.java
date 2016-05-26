@@ -57,8 +57,10 @@ public class VisualizarMod {
     }
 
     public static Articulo genArticulo(int idArticulo) throws SQLException {
+        System.out.println("idArticulo: "+ idArticulo);
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Articulos WHERE idArticulo = " + idArticulo + " ;");
-        Articulo articulo = new Articulo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+        rs.next();
+        Articulo articulo = new Articulo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7));
         return articulo;
     }
 

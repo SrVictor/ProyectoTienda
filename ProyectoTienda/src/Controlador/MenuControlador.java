@@ -44,7 +44,6 @@ public class MenuControlador implements ActionListener {
                 vistaBaja = new BajaArticulo(Articulo.rellenarComboBoxID());
                 BajaArticuloControlador bac = new BajaArticuloControlador(vistaBaja);
                 vistaBaja.setControlador(bac);
-                vistaBaja.arranca();
             } catch (SQLException ex) {
                 Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
             }

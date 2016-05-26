@@ -125,7 +125,7 @@ public class AltaBajaArticulo {
         try {
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             CallableStatement cs;
-            cs = GenConexionMod.getConexion().prepareCall("{call bajaArticulo(?)}");
+            cs = GenConexionMod.getConexion().prepareCall("{call bajaArticulo_IN(?)}");
             //establecemos los valores de los parámetros.
             cs.setInt(1, idArticulo);
             cs.execute();

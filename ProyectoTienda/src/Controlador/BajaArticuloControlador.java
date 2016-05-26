@@ -20,9 +20,10 @@ public class BajaArticuloControlador implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent evento) {
+        modelo = new AltaBajaArticulo();
         if (evento.getActionCommand().equals(BajaArticulo.ACEPTAR)) {
-            if (modelo.bajaArticulo(vista.getJcombo())) {
-                vista.mostrarInfo("Se ha dado de baja satisfactoriamente al articulo con id: " + vista.getJcombo());
+            if (modelo.bajaArticulo(BajaArticulo.getJcombo())) {
+                vista.mostrarInfo("Se ha dado de baja satisfactoriamente al articulo con id: " + BajaArticulo.getJcombo());
             } else {
                 vista.mostrarInfo("Ha habido un error!");
             }
