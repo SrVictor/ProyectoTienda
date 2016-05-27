@@ -5,8 +5,7 @@ package Modelo;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
+import Vista.PlantillaVista;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +13,11 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Clase modelo de la gestion de ventas de articulos.
+ *
  * @author Computer
  */
 public class VentaArticulosModelo {
@@ -26,7 +27,6 @@ public class VentaArticulosModelo {
     public VentaArticulosModelo() {
     }
 
-    
     /**
      * Actualiza el stock en la base de datos.
      *
@@ -34,14 +34,15 @@ public class VentaArticulosModelo {
      * @param stock
      * @return true si es exitoso.
      */
-    public boolean actualizarStock(int idArticulo, int stock) {
+    public boolean actualizarStock(Venta venta) {
         try {
+            System.out.println("Actualizando....");
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             CallableStatement cs;
             cs = GenConexionMod.getConexion().prepareCall("{call modificarStockArticulo_IN(?,?)}");
             //establecemos los valores de los parámetros.
-            cs.setInt(1, idArticulo);
-            cs.setInt(2, stock);
+            cs.setInt(1, venta.getIdArticulo());
+            cs.setInt(2, venta.getCantidad());
             cs.execute();
             return true;
         } catch (SQLException ex) {
@@ -54,17 +55,17 @@ public class VentaArticulosModelo {
      * Aumenta el stock de un articulo en la base de datos.
      *
      * @param idArticulo
-     * @param stock
+     * @param cantidad
      * @return true si es exitoso.
      */
-    public boolean aumentarStock(int idArticulo, int stock) {
+    public boolean aumentarStock(int idArticulo, int cantidad) {
         try {
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             CallableStatement cs;
             cs = GenConexionMod.getConexion().prepareCall("{call aumentarStock_IN(?,?)}");
             //establecemos los valores de los parámetros.
             cs.setInt(1, idArticulo);
-            cs.setInt(2, stock);
+            cs.setInt(2, cantidad);
             cs.execute();
             return true;
 
@@ -83,12 +84,10 @@ public class VentaArticulosModelo {
      * @throws ParseException
      */
     public boolean genVenta(Venta venta) throws ParseException {
-        DateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date fecha = null;
-        java.sql.Date fecha2 = null;
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = sdf.format(dt);
 
-        fecha = ft.parse(venta.getFechaTransacción());
-        fecha2 = new java.sql.Date(fecha.getTime());
 
         try {
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -96,9 +95,9 @@ public class VentaArticulosModelo {
             cs = GenConexionMod.getConexion().prepareCall("{call genVenta_IN(?,?,?,?)}");
             //establecemos los valores de los parámetros.
             cs.setInt(1, venta.getIdArticulo());
-            cs.setDate(2, fecha2);
+            cs.setString(2, currentTime);
             cs.setInt(3, venta.getCantidad());
-            cs.setFloat(4, venta.getPrecio());
+            cs.setFloat(4, venta.getPrecioTotal());
             cs.execute();
             return true;
         } catch (SQLException ex) {
@@ -141,11 +140,12 @@ public class VentaArticulosModelo {
      * @throws ParseException
      */
     public boolean ventaArticulo(Venta venta) throws ParseException {
-        if (venta.getStock() <= getStock(venta.getIdArticulo())) {
-            actualizarStock(venta.getIdArticulo(), venta.getStock());
+        if (venta.getCantidad() <= venta.getStock()) {
+            actualizarStock(venta);
             genVenta(venta);
             return true;
         } else {
+            PlantillaVista.mostrarInfo2("No hay suficiente stock para realizar la venta.");
             return false;
         }
     }

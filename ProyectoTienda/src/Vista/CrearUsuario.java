@@ -5,11 +5,13 @@
  */
 package Vista;
 
+import Controlador.CrearUsuarioControlador;
 import Controlador.UsuariosControlador;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,59 +25,68 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author David
  */
-public class Login extends PlantillaVista {
+public class CrearUsuario extends PlantillaVista {
 
+    private JComboBox JCombo;
     public static final String ACEPTAR = "Aceptar";
     public static final String CANCELAR = "Cancelar";
-    private static JLabel LNombre;
-    private static JLabel LContrasena;
-    private JTextField TNombre;
-    private JPasswordField TContrasena;
+    private static JLabel LUsuario, LContrasena, LCargo, LNombre;
+    private JTextField TUsuario, TContrasena, TNombre;
     private static JButton btnAceptar;
     private static JButton btnCancelar;
 
-    public Login() {
+    public CrearUsuario() {
         frame = new JFrame();
         JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(5, 2, 5, 5));
 
-        mainPanel.setLayout(new GridLayout(3, 2, 5, 5));
+        JCombo = new JComboBox();
+        JCombo.addItem("Comercial");
+        JCombo.addItem("Grente");
 
-        LNombre = new JLabel("Usuario");
-        LContrasena = new JLabel("Contraseña");
-        TNombre = new JTextField(20);
-        TNombre.setText("Gerente");
-        TContrasena = new JPasswordField(20);
-        TContrasena.setText("gerente");
+        LUsuario = new JLabel("Usuario: ");
+        TUsuario = new JTextField(20);
+        LContrasena = new JLabel("Contraseña: ");
+        TContrasena = new JTextField(20);
+        LCargo = new JLabel("Cargo: ");
+        LNombre = new JLabel("Nombre: ");
+        TNombre = new JTextField();
         btnAceptar = new JButton("Aceptar");
         btnAceptar.setActionCommand("Aceptar");
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setActionCommand("Cancelar");
-        mainPanel.add(LNombre);
-        mainPanel.add(TNombre);
+        mainPanel.add(LUsuario);
+        mainPanel.add(TUsuario);
         mainPanel.add(LContrasena);
         mainPanel.add(TContrasena);
+        mainPanel.add(LCargo);
+        mainPanel.add(JCombo);
+        mainPanel.add(LNombre);
+        mainPanel.add(TNombre);
         mainPanel.add(btnAceptar);
         mainPanel.add(btnCancelar);
 
         frame.add(mainPanel);
     }
 
-    public String getTNombre() {
-        return TNombre.getText();
+    public String getTUsuario() {
+        return TUsuario.getText();
     }
 
     public String getTContrasena() {
-        // Obtener el password
-        char passArray[] = TContrasena.getPassword();
-        // Revisar que sean letras y numeros
-        for (int i = 0; i < passArray.length; i++) {
-            char c = passArray[i];
 
-        }
-        return new String(passArray);
+        return TContrasena.getText();
     }
 
-    public void setControlador(UsuariosControlador escucharBoton) {
+    public String getJCombo() {
+        return (String) JCombo.getSelectedItem();
+    }
+
+    public String getTNombre() {
+        return TNombre.getText();
+    }
+    
+    public void setControlador(CrearUsuarioControlador escucharBoton) {
         btnAceptar.addActionListener(escucharBoton);
         btnCancelar.addActionListener(escucharBoton);
     }
@@ -83,7 +94,8 @@ public class Login extends PlantillaVista {
     public void arranca() {
         frame.pack();// coloca los componentes
         frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+    
+    
 }

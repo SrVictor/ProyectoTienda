@@ -19,14 +19,19 @@ public class MenuControlador implements ActionListener {
     private SeleccionArticulo vistaSeleccion;
     private BajaArticulo vistaBaja;
     private RellenarStock vistaRellenar;
+    private Vender vistaVender;
+    private CrearUsuario vistaUsuario;
 
     public MenuControlador(MenuPrincipal vista) {
-        System.out.println("1");
         this.vista = vista;
     }
 
     public void actionPerformed(ActionEvent evento) {
         if (evento.getActionCommand().equals(MenuPrincipal.CREARUSUARIO)) {
+            vistaUsuario = new CrearUsuario();
+            CrearUsuarioControlador cuc = new CrearUsuarioControlador(vistaUsuario);
+            vistaUsuario.setControlador(cuc);
+            vistaUsuario.arranca();
         } else if (evento.getActionCommand().equals(MenuPrincipal.ALTAARTICULO)) {
 
             SeleccionArticuloControlador.setMenu("Alta Articulo");
@@ -61,6 +66,14 @@ public class MenuControlador implements ActionListener {
             }
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.VENDERARTICULO)) {
+            try {
+                vistaVender = new Vender(Articulo.rellenarComboBoxID());
+                VenderControlador vc = new VenderControlador(vistaVender);
+                vistaVender.setControlador(vc);
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARARTICULOS)) {
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARVENTAS)) {
         }

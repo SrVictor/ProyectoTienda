@@ -2,6 +2,8 @@ package Modelo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,25 +17,43 @@ import java.util.ArrayList;
 public class Venta extends Articulo {
 
     private int idVenta;
-    private String fechaTransacción;
+    private String fechaTransaccion;
     private int cantidad;
     private float precioTotal;
     private static ArrayList<Venta> ventas;
 
-    public Venta(int idVenta, String fechaTransición, int cantidad, float precioTotal, int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
+    public Venta(int idVenta, int cantidad, float precioTotal, int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
         super(idArticulo, nombre, productora, clasificacion, genero, stock, precio);
         this.idVenta = idVenta;
-        this.fechaTransacción = fechaTransición;
+        this.fechaTransaccion = getFechaTransacción();
         this.cantidad = cantidad;
         this.precioTotal = precioTotal;
     }
 
+    public Venta(int cantidad, float precioTotal, int idArticulo, int stock) {
+        super(idArticulo, stock);
+        this.cantidad = cantidad;
+        this.precioTotal = precioTotal;
+    }
+
+
+    
+    
     public int getIdVenta() {
         return idVenta;
     }
 
     public String getFechaTransacción() {
-        return fechaTransacción;
+        Calendar c = new GregorianCalendar();
+        String dia = Integer.toString(c.get(Calendar.DATE));
+        String mes = Integer.toString(c.get(Calendar.MONTH));
+        String annio = Integer.toString(c.get(Calendar.YEAR));
+        String hora = Integer.toString(c.get(Calendar.HOUR));
+        String minuto = Integer.toString(c.get(Calendar.MINUTE));
+        String segundos = Integer.toString(c.get(Calendar.SECOND));
+        fechaTransaccion = annio + "-" + mes + "-" + dia +  " " + hora + ":" + minuto + ":" + segundos;
+        System.out.println(fechaTransaccion);
+        return fechaTransaccion;
     }
 
     public int getCantidad() {

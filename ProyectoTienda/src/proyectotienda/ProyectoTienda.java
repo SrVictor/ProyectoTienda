@@ -23,9 +23,9 @@ public class ProyectoTienda {
 
         // el modelo:
         GenConexionMod modelo = new GenConexionMod();
-// la vista:
+        // la vista:
         Login vista = new Login();
-// y el control:
+        // y el control:
         UsuariosControlador control = new UsuariosControlador(vista, modelo);
 // configura la vista
         vista.setControlador(control);

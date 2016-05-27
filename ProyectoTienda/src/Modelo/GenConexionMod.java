@@ -1,6 +1,7 @@
 package Modelo;
 
 import static Modelo.VisualizarMod.genArticulo;
+import Vista.PlantillaVista;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,8 +14,7 @@ public class GenConexionMod {
     private static Connection conexion;
     private static String servidor = "jdbc:mysql://localhost/";
     private static String bd = "tienda";
-    private static String usuario;
-    private static String contrasenia;
+    private static String cargo;
     private static String sentenciaSQL;
 
     private static String regex = "[0-9][a-zA-z]*\\.user";
@@ -27,13 +27,11 @@ public class GenConexionMod {
      *
      * @return
      */
-    public boolean abrirConexion(String user, String pass) {
+    public boolean abrirConexion() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conexion = DriverManager.getConnection(servidor + bd, user, pass);
+            conexion = DriverManager.getConnection(servidor + bd, "root", "");
             System.out.println("CONECTADO!");
-            usuario = user;
-            contrasenia = pass;
             return true;
         } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
@@ -43,6 +41,24 @@ public class GenConexionMod {
             System.out.println(ex);
             return false;
         }
+    }
+
+    public boolean logear(String user, String pass) throws SQLException {
+        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM usuarios Where usuario='" + user + "' AND contrasena ='" + pass + "';");
+        rs.beforeFirst();
+        if (rs.next()) {
+            System.out.println(rs.getInt(1));
+            System.out.println(rs.getString(2));
+            System.out.println(rs.getString(3));
+            System.out.println(rs.getString(4));
+            System.out.println(rs.getString(5));
+            cargo = rs.getString(4);
+            System.out.println("Cargo: " + cargo);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -88,15 +104,29 @@ public class GenConexionMod {
         return rs;
     }
 
-    public boolean crearUsuario(String nombre, String contrasena) throws SQLException {
+    public boolean crearUsuario(String usuario, String contrasena,String cargo, String nombre) throws SQLException {
         if (comprobarContrasena(contrasena)) {
-            GenConexionMod.ejecutaQuery("CREATE USER '" + nombre + "'@'127.0.0.1' IDENTIFIED BY '" + contrasena + "';  GRANT SELECT, EXECUTE ON * . * TO '" + nombre + "'@'127.0.0.1';");
-            usuario = nombre;
-            contrasenia = contrasena;
+            GenConexionMod.ejecutaUpdate("INSERT INTO `usuarios` (`idEmpleado`, `Usuario`, `Contrasena`, `Cargo`, `Nombre`) VALUES (NULL, '"+ usuario+ "' ,'" +contrasena+"' ,'"+cargo+"' , '" +nombre+"');");
             return true;
         } else {
+            PlantillaVista.mostrarInfo2("La contraseña no es adecuada.");
             return false;
         }
+    }
+    
+      public static int ejecutaUpdate(String sentenciaSQL) {
+        int n = 0;
+        try {
+
+            Statement st = conexion.createStatement();
+            n = st.executeUpdate(sentenciaSQL);
+            System.out.println("Update Correcto.");
+            //System.out.println(st.getUpdateCount());
+            return n;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return n;
     }
 
     /**
@@ -109,12 +139,12 @@ public class GenConexionMod {
     }
 
     /**
-     * Devuelve el nombre de usuario.
+     * Devuelve el nombre de cargo.
      *
      * @return
      */
-    public static String getUsuario() {
-        return usuario;
+    public static String getCargo() {
+        return cargo;
     }
 
 }

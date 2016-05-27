@@ -37,6 +37,12 @@ public class Articulo {
         this.precio = precio;
     }
 
+    public Articulo(int idArticulo, int stock) {
+        this.idArticulo = idArticulo;
+        this.stock=stock;
+    }
+
+    
     /**
      * Devuelve el id del articulo a través del conocimiento del nombre.
      *

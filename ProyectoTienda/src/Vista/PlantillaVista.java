@@ -8,37 +8,42 @@ package Vista;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author David
  */
-public class PlantillaVista{
-JFrame frame = new JFrame();
+public class PlantillaVista {
 
-    public PlantillaVista(){
-        
+    JFrame frame = new JFrame();
+    static JFrame fram2 = new JFrame();
+
+    public PlantillaVista() {
+
     }
-
 
     public void mostrarInfo(String mensajeError) {
         JOptionPane.showMessageDialog(frame, mensajeError);
+    }
+
+    public static void mostrarInfo2(String mensajeError) {
+        JOptionPane.showMessageDialog(fram2, mensajeError);
     }
 
     public void setControlador() {
 
     }
 
-    public void cerrar(){
+    public void cerrar() {
         System.exit(0);
     }
-    
-    public void cerrarVentana(){
+
+    public void cerrarVentana() {
         frame.dispose();
     }
 
     public void arranca() {
         frame.pack();// coloca los componentes
         frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
-        frame.setVisible(true);}
+        frame.setVisible(true);
     }
+}

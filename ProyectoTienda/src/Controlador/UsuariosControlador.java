@@ -10,6 +10,9 @@ import Vista.Login;
 import Vista.MenuPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuariosControlador implements ActionListener {
 
@@ -24,16 +27,21 @@ public class UsuariosControlador implements ActionListener {
 
     public void actionPerformed(ActionEvent evento) {
         if (evento.getActionCommand().equals(Login.ACEPTAR)) {
-            if (modelo.abrirConexion(vista.getTNombre(), vista.getTContrasena())) {
-                vista.mostrarInfo("Se ha conectado satisfactoriamente");
-                vista.cerrarVentana();
-                
-                MenuControlador mc = new MenuControlador(vista2);
-                vista2 = new MenuPrincipal();
-                vista2.setControlador(mc);
-                vista2.arranca();
-            } else {
-                vista.mostrarInfo("No se a podido establecer conexión, comprueba los datos.");
+            modelo.abrirConexion();
+            try {
+                if (modelo.logear(vista.getTNombre(), vista.getTContrasena())) {
+                    vista.mostrarInfo("Se ha conectado satisfactoriamente");
+                    vista.cerrarVentana();
+                    
+                    MenuControlador mc = new MenuControlador(vista2);
+                    vista2 = new MenuPrincipal();
+                    vista2.setControlador(mc);
+                    vista2.arranca();
+                } else {
+                    vista.mostrarInfo("No se a podido establecer conexión, comprueba los datos.");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuariosControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (evento.getActionCommand().equals(Login.CANCELAR)) {
             vista.cerrar();

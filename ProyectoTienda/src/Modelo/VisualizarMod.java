@@ -53,8 +53,9 @@ public class VisualizarMod {
         Venta.getVentas().clear();
         while (rs.next()) {
             Articulo articulo = genArticulo(rs.getInt(1));
-            Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getInt(5), rs.getInt(2), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
-            Venta.anadirVenta(venta);
+            ///Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getInt(5), rs.getInt(2), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
+            //Venta.anadirVenta(venta);
+            System.out.println("SIN ACABARRRRRRRRRRRR--> MODELO>VISUALIZARMOD");
         }
     }
 

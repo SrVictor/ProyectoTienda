@@ -39,7 +39,7 @@ public class MenuPrincipal extends PlantillaVista {
         JPanel mainPanel = new JPanel();
         frame = new JFrame();
 
-        if (GenConexionMod.getUsuario().equals("Gerente")) {
+        if (GenConexionMod.getCargo().equals("Gerente")) {
             mainPanel.setLayout(new GridLayout(9, 1, 5, 5));
             btnCrearUsuario = new JButton("Crear Usuario");
             btnCrearUsuario.setActionCommand("Crear Usuario");
@@ -77,7 +77,6 @@ public class MenuPrincipal extends PlantillaVista {
     }
 
     public void setControlador(MenuControlador escucharBoton) {
-        System.out.println("3");
         btnAltaArticulo.addActionListener(escucharBoton);
         btnBajaArticulo.addActionListener(escucharBoton);
         btnModificarArticulo.addActionListener(escucharBoton);
