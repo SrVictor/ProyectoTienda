@@ -18,8 +18,9 @@ public class VisualizarMod {
 
     public static void genArrayArticulos() throws SQLException {
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Articulos ;");
-        ResultSetMetaData metaDatos = rs.getMetaData();
-        Articulo.getArticulos().clear();
+        if (Articulo.getArticulos() != null) {
+            Articulo.getArticulos().clear();
+        }
         while (rs.next()) {
             Articulo articulo = new Articulo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
             Articulo.anadirArticulo(articulo);
@@ -38,7 +39,7 @@ public class VisualizarMod {
 
     public static void genArraySeries() throws SQLException {
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Series ;");
-        if (Serie.getSeries()!=null) {
+        if (Serie.getSeries() != null) {
             Serie.getSeries().clear();
         }
         while (rs.next()) {
@@ -100,4 +101,23 @@ public class VisualizarMod {
         return pelicula;
     }
 
+    public static void toArray() throws SQLException {
+        genArrayArticulos();
+        ArrayList<Articulo> articulos = Articulo.getArticulos();
+        String[][] articulo = new String[articulos.size()][7];
+
+        for (int i = 0; i < articulos.size(); i++) {
+            articulo[i][0] = String.valueOf(articulos.get(i).getIdArticulo());
+            System.out.println(articulo[i][0]);
+            articulo[i][1] = articulos.get(i).getNombre();
+            System.out.println(articulo[i][1]);
+            articulo[i][2] = articulos.get(i).getProductora();
+            articulo[i][3] = articulos.get(i).getClasificacion();
+            articulo[i][4] = articulos.get(i).getGenero();
+            articulo[i][5] = String.valueOf(articulos.get(i).getStock());
+            articulo[i][6] = String.valueOf(articulos.get(i).getPrecio());
+
+        }
+        Articulo.setArticul(articulo);
+    }
 }

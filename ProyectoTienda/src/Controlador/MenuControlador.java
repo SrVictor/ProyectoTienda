@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Vista.VentanaMostrarArticulos;
 
 public class MenuControlador implements ActionListener {
 
@@ -75,6 +76,11 @@ public class MenuControlador implements ActionListener {
             }
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARARTICULOS)) {
+             try {
+                VentanaMostrarArticulos vma = new VentanaMostrarArticulos(Articulo.getArticul());
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARVENTAS)) {
         }
 

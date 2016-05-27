@@ -8,6 +8,7 @@ package proyectotienda;
 import Controlador.UsuariosControlador;
 import Modelo.GenConexionMod;
 import Vista.Login;
+import java.sql.SQLException;
 
 /**
  *
@@ -18,9 +19,9 @@ public class ProyectoTienda {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-
+        
         // el modelo:
         GenConexionMod modelo = new GenConexionMod();
         // la vista:
@@ -29,6 +30,7 @@ public class ProyectoTienda {
         UsuariosControlador control = new UsuariosControlador(vista, modelo);
 // configura la vista
         vista.setControlador(control);
+        
 // y arranca la interfaz (vista):
         vista.arranca();
     }

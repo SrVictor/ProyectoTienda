@@ -17,6 +17,7 @@ public class Articulo {
     protected int stock;
     protected float precio;
     private static ArrayList<Articulo> articulos;
+    private static String[][] articul;
 
     public Articulo(int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
         this.idArticulo = idArticulo;
@@ -124,7 +125,6 @@ public class Articulo {
     }
 
     public static ArrayList<Articulo> getArticulos() throws SQLException {
-        VisualizarMod.genArrayArticulos();
         return articulos;
     }
 
@@ -133,8 +133,12 @@ public class Articulo {
     }
 
     public static void anadirArticulo(Articulo articulo) {
+         if (articulos==null){
+            articulos = new ArrayList<Articulo>();
+        }
         articulos.add(articulo);
     }
+
 
     public void setIdArticulo(int idArticulo) {
         this.idArticulo = idArticulo;
@@ -163,5 +167,16 @@ public class Articulo {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    public static String[][] getArticul() throws SQLException {
+       VisualizarMod.toArray();
+        return articul;
+    }
+
+    public static void setArticul(String[][] articul) {
+        Articulo.articul = articul;
+    }
+    
+    
 
 }
