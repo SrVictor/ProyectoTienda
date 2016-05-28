@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Vista.VentanaMostrarArticulos;
+import Vista.MostrarArticulosVista;
 
 public class MenuControlador implements ActionListener {
 
@@ -22,6 +22,7 @@ public class MenuControlador implements ActionListener {
     private RellenarStock vistaRellenar;
     private Vender vistaVender;
     private CrearUsuario vistaUsuario;
+    private MostrarArticulosVista vistaArticulos;
 
     public MenuControlador(MenuPrincipal vista) {
         this.vista = vista;
@@ -76,8 +77,11 @@ public class MenuControlador implements ActionListener {
             }
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARARTICULOS)) {
-             try {
-                VentanaMostrarArticulos vma = new VentanaMostrarArticulos(Articulo.getArticul());
+            try {
+                vistaArticulos = new MostrarArticulosVista(Articulo.getArticul());
+                MostrarArticulosControlador vma = new MostrarArticulosControlador(vistaArticulos);
+                vistaArticulos.setControlador(vma);
+
             } catch (SQLException ex) {
                 Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
             }

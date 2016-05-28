@@ -9,6 +9,7 @@ public class Serie extends Articulo {
     private int nCapitulos;
     private int nTemporadas;
     private static ArrayList<Serie> series;
+    private static String[][] serie;
 
     public Serie(int nCapitulos, int nTemporadas, int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
         super(idArticulo, nombre, productora, clasificacion, genero, stock, precio);
@@ -70,5 +71,16 @@ public class Serie extends Articulo {
         }
         series.add(serie);
     }
+
+    public static String[][] getSerie() throws SQLException {
+       VisualizarMod.SeriesToArray();
+        return serie;
+    }
+
+    public static void setSerie(String[][] serie) {
+        Serie.serie = serie;
+    }
+     
+    
 
 }

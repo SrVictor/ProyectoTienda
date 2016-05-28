@@ -101,7 +101,7 @@ public class VisualizarMod {
         return pelicula;
     }
 
-    public static void toArray() throws SQLException {
+    public static void ArticulosToArray() throws SQLException {
         genArrayArticulos();
         ArrayList<Articulo> articulos = Articulo.getArticulos();
         String[][] articulo = new String[articulos.size()][7];
@@ -119,5 +119,27 @@ public class VisualizarMod {
 
         }
         Articulo.setArticul(articulo);
+    }
+
+    public static void SeriesToArray() throws SQLException {
+        genArraySeries();
+        ArrayList<Serie> series = Serie.getSeries();
+        String[][] serie = new String[series.size()][9];
+
+        for (int i = 0; i < series.size(); i++) {
+            serie[i][0] = String.valueOf(series.get(i).getIdArticulo());
+            System.out.println("IdArticulo: " +  series.get(i).getIdArticulo());
+            serie[i][1] = series.get(i).getNombre();
+            System.out.println("Nombre: " +  series.get(i).getNombre());
+            serie[i][2] = series.get(i).getProductora();
+            serie[i][3] = series.get(i).getClasificacion();
+            serie[i][4] = series.get(i).getGenero();
+            serie[i][5] = String.valueOf(series.get(i).getStock());
+            serie[i][6] = String.valueOf(series.get(i).getPrecio());
+            serie[i][7] = String.valueOf(series.get(i).getnCapitulos());
+            serie[i][8] = String.valueOf(series.get(i).getnTemporadas());
+
+        }
+        Serie.setSerie(serie);
     }
 }

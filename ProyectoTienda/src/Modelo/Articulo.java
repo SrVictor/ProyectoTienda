@@ -169,7 +169,7 @@ public class Articulo {
     }
 
     public static String[][] getArticul() throws SQLException {
-       VisualizarMod.toArray();
+       VisualizarMod.ArticulosToArray();
         return articul;
     }
 

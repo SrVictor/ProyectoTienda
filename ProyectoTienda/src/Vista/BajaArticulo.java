@@ -37,9 +37,9 @@ public class BajaArticulo extends PlantillaVista {
         frame.pack();// coloca los componentes
         frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
         frame.setVisible(true);
-}
+    }
 
-JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
+    JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
         topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(3, 2, 5, 5));
 
@@ -48,16 +48,15 @@ JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
         // Accion a realizar cuando el JComboBox cambia de item seleccionado.
         Jcombo.addActionListener(new ActionListener() {
             @Override
-        public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 int idArticulo = (Integer) Jcombo.getSelectedItem();
                 try {
                     Articulo articulo = VisualizarMod.genArticulo(idArticulo);
                     LnombreD.setText(articulo.getNombre());
-                
 
-} catch (SQLException ex) {
+                } catch (SQLException ex) {
                     Logger.getLogger(BajaArticulo.class
-.getName()).log(Level.SEVERE, null, ex);
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
