@@ -21,11 +21,12 @@ public class Venta extends Articulo {
     private int cantidad;
     private float precioTotal;
     private static ArrayList<Venta> ventas;
+    private static String[][] vent;
 
-    public Venta(int idVenta, int cantidad, float precioTotal, int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
+    public Venta(int idVenta, String fechaTransaccion, int cantidad, float precioTotal, int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
         super(idArticulo, nombre, productora, clasificacion, genero, stock, precio);
         this.idVenta = idVenta;
-        this.fechaTransaccion = getFechaTransacción();
+        this.fechaTransaccion = fechaTransaccion;
         this.cantidad = cantidad;
         this.precioTotal = precioTotal;
     }
@@ -36,9 +37,6 @@ public class Venta extends Articulo {
         this.precioTotal = precioTotal;
     }
 
-
-    
-    
     public int getIdVenta() {
         return idVenta;
     }
@@ -51,7 +49,7 @@ public class Venta extends Articulo {
         String hora = Integer.toString(c.get(Calendar.HOUR));
         String minuto = Integer.toString(c.get(Calendar.MINUTE));
         String segundos = Integer.toString(c.get(Calendar.SECOND));
-        fechaTransaccion = annio + "-" + mes + "-" + dia +  " " + hora + ":" + minuto + ":" + segundos;
+        fechaTransaccion = annio + "-" + mes + "-" + dia + " " + hora + ":" + minuto + ":" + segundos;
         System.out.println(fechaTransaccion);
         return fechaTransaccion;
     }
@@ -69,7 +67,6 @@ public class Venta extends Articulo {
     }
 
     public static ArrayList<Venta> getVentas() throws SQLException {
-        VisualizarMod.genArrayVentas();
         return ventas;
     }
 
@@ -78,7 +75,18 @@ public class Venta extends Articulo {
     }
 
     public static void anadirVenta(Venta venta) {
+        if (ventas == null) {
+            ventas = new ArrayList<Venta>();
+        }
         ventas.add(venta);
     }
 
+    public static String[][] getVent() throws SQLException {
+        VisualizarMod.VentasToArray();
+        return vent;
+    }
+
+    public static void setVent(String[][] venta) {
+        Venta.vent = venta;
+    }
 }

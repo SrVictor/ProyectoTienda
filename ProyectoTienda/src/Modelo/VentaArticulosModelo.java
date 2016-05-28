@@ -84,6 +84,7 @@ public class VentaArticulosModelo {
      * @throws ParseException
      */
     public boolean genVenta(Venta venta) throws ParseException {
+        System.out.println("genVenta(venta)");
         java.util.Date dt = new java.util.Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(dt);
@@ -140,8 +141,10 @@ public class VentaArticulosModelo {
      * @throws ParseException
      */
     public boolean ventaArticulo(Venta venta) throws ParseException {
+        System.out.println("ventaArticulo(venta)");
         if (venta.getCantidad() <= venta.getStock()) {
             actualizarStock(venta);
+            System.out.println("actualizarStock(venta)");
             genVenta(venta);
             return true;
         } else {

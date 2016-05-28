@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -46,15 +48,13 @@ public class MostrarArticulosVista extends PlantillaVista {
     String[][] articulos;
     public static String FILTRAR = "Filtrar";
     public static String ACTUALIZAR = "Actualizar";
-    
-    
+
     public MostrarArticulosVista(String[][] articulo) throws SQLException {
         frame = new JFrame("Mostrar Articulos");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.add(construyePanelTop());
         frame.add(construyePanelFrontal(articulo));
         frame.pack();
-        frame.setSize(1920, 1050);
         frame.setVisible(true);
 
     }
@@ -63,7 +63,6 @@ public class MostrarArticulosVista extends PlantillaVista {
         panelTop = new JPanel();
         panelTop.setLayout(new GridLayout(2, 2, 0, 5)); //(Filas, Columnas, Espacio altura, Espacio Anchuta)
 
-        
         Jcombo = new JComboBox();
         Jcombo.addItem("Series");
         Jcombo.addItem("Peliculas");
@@ -95,9 +94,20 @@ public class MostrarArticulosVista extends PlantillaVista {
         // Le decimos a la tabla que use la ordenación de filas que hemos
         // creado
         table.setRowSorter(sorter);
+
+        table.getModel().addTableModelListener(new TableModelListener() {
+            public void tableChanged(TableModelEvent e) {
+                for (int i = 0; i < table.getRowCount(); i++) {
+                    for (int j = 0; j < table.getColumnCount(); j++) {
+                        System.out.print("Valor: ");
+                        System.out.println(table.getValueAt(i, j).toString());
+                    }
+                }
+            }
+        });
+
         JScrollPane scroll = new JScrollPane(table);
         frame.getContentPane().add(scroll);
-
         return scroll;
     }
 
@@ -113,8 +123,5 @@ public class MostrarArticulosVista extends PlantillaVista {
     public String getJcombo() {
         return (String) Jcombo.getSelectedItem();
     }
-    
-    
-    
-    
+
 }

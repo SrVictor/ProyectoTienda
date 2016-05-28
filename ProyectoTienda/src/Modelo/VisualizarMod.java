@@ -50,18 +50,20 @@ public class VisualizarMod {
     }
 
     public static void genArrayVentas() throws SQLException {
-        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Ventas ;");
-        Venta.getVentas().clear();
+        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM historialventas ;");
+        System.out.println("genArrayVentas()");
+        if (Venta.getVentas() != null) {
+            Venta.getVentas().clear();
+        }
         while (rs.next()) {
-            Articulo articulo = genArticulo(rs.getInt(1));
-            ///Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getInt(5), rs.getInt(2), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
-            //Venta.anadirVenta(venta);
-            System.out.println("SIN ACABARRRRRRRRRRRR--> MODELO>VISUALIZARMOD");
+            Articulo articulo = genArticulo(rs.getInt(2));
+            Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getFloat(5), rs.getInt(2), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
+            Venta.anadirVenta(venta);
         }
     }
 
     public static Articulo genArticulo(int idArticulo) throws SQLException {
-        System.out.println("idArticulo: " + idArticulo);
+        System.out.println("genArticulo()");
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Articulos WHERE idArticulo = " + idArticulo + " ;");
         rs.next();
         Articulo articulo = new Articulo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7));
@@ -128,9 +130,9 @@ public class VisualizarMod {
 
         for (int i = 0; i < series.size(); i++) {
             serie[i][0] = String.valueOf(series.get(i).getIdArticulo());
-            System.out.println("IdArticulo: " +  series.get(i).getIdArticulo());
+            System.out.println("IdArticulo: " + series.get(i).getIdArticulo());
             serie[i][1] = series.get(i).getNombre();
-            System.out.println("Nombre: " +  series.get(i).getNombre());
+            System.out.println("Nombre: " + series.get(i).getNombre());
             serie[i][2] = series.get(i).getProductora();
             serie[i][3] = series.get(i).getClasificacion();
             serie[i][4] = series.get(i).getGenero();
@@ -142,4 +144,29 @@ public class VisualizarMod {
         }
         Serie.setSerie(serie);
     }
+
+    public static void VentasToArray() throws SQLException {
+        System.out.println("VentasToArray()");
+        genArrayVentas();
+        ArrayList<Venta> ventas = Venta.getVentas();
+        String[][] venta = new String[ventas.size()][10];
+
+        for (int i = 0; i < ventas.size(); i++) {
+            venta[i][0] = String.valueOf(ventas.get(i).getIdVenta());
+            venta[i][1] = String.valueOf(ventas.get(i).getIdArticulo());
+            System.out.println("IdArticulo: " + ventas.get(i).getIdArticulo());
+            venta[i][2] = ventas.get(i).getFechaTransacción();
+            venta[i][3] = String.valueOf(ventas.get(i).getCantidad());
+            venta[i][4] = String.valueOf(ventas.get(i).getPrecioTotal());
+            venta[i][5] = ventas.get(i).getNombre();
+            System.out.println("Nombre: " + ventas.get(i).getNombre());
+            venta[i][6] = ventas.get(i).getProductora();
+            venta[i][7] = ventas.get(i).getClasificacion();
+            venta[i][8] = ventas.get(i).getGenero();
+            venta[i][9] = String.valueOf(ventas.get(i).getPrecio());
+
+        }
+        Venta.setVent(venta);
+    }
+
 }

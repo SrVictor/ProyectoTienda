@@ -17,7 +17,7 @@ public class GenConexionMod {
     private static String cargo;
     private static String sentenciaSQL;
 
-    private static String regex = "[0-9][a-zA-z]*\\.user";
+    private static String regex = "[A-Z]+[a-z][a-z]\\w*[0-9][0-9]+[$]";
 
     public GenConexionMod() {
     }
@@ -82,7 +82,7 @@ public class GenConexionMod {
      * @return
      */
     public boolean comprobarContrasena(String pass) {
-        if (pass.matches(regex)) {
+        if (pass.matches(regex) && pass.length()>=8) {
             System.out.println("CORRECTO!");
             return true;
         } else {

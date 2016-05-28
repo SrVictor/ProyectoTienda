@@ -30,13 +30,14 @@ public class CrearUsuarioControlador implements ActionListener {
                 modelo = new GenConexionMod();
                 if (modelo.crearUsuario(vista.getTUsuario(), vista.getTContrasena(), vista.getJCombo(), vista.getTNombre())) {
                     vista.mostrarInfo("Se ha creado el usuario satisfactoriamente: " + vista.getTUsuario());
+                    vista.cerrarVentana();
                 } else {
                     vista.mostrarInfo("Ha habido un error!");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(CrearUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
-            vista.cerrarVentana();
+            
 
         } else if (evento.getActionCommand().equals(Vender.CANCELAR)) {
             vista.cerrarVentana();

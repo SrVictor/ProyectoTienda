@@ -23,6 +23,7 @@ public class MenuControlador implements ActionListener {
     private Vender vistaVender;
     private CrearUsuario vistaUsuario;
     private MostrarArticulosVista vistaArticulos;
+    private MostrarVentasVista vistaVentas;
 
     public MenuControlador(MenuPrincipal vista) {
         this.vista = vista;
@@ -86,6 +87,14 @@ public class MenuControlador implements ActionListener {
                 Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARVENTAS)) {
+            try {
+                vistaVentas = new MostrarVentasVista(Venta.getVent());
+                MostrarVentasControlador mvc = new MostrarVentasControlador(vistaVentas);
+                vistaVentas.setControlador(mvc);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
