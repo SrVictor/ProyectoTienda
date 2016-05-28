@@ -35,6 +35,31 @@ public class AltaBajaArticulo {
         try {
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             CallableStatement cs;
+            System.out.println("altaArticulo");
+            cs = GenConexionMod.getConexion().prepareCall("{call altaArticulo_IN(?,?,?,?,?,?)}");
+            //establecemos los valores de los parámetros.
+            cs.setString(1, articulo.getNombre());
+            cs.setString(2, articulo.getProductora());
+            cs.setString(3, articulo.getClasificacion());
+            cs.setString(4, articulo.getGenero());
+            cs.setInt(5, articulo.getStock());
+            cs.setFloat(6, articulo.getPrecio());
+            cs.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+
+    }
+    
+    public static boolean altaArticul(Articulo articulo) throws SQLException {
+        System.out.println("AltaArticul(articulo)");
+        try {
+            Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            CallableStatement cs;
+            System.out.println("altaArticulo");
             cs = GenConexionMod.getConexion().prepareCall("{call altaArticulo_IN(?,?,?,?,?,?)}");
             //establecemos los valores de los parámetros.
             cs.setString(1, articulo.getNombre());
@@ -141,8 +166,9 @@ public class AltaBajaArticulo {
         try {
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             CallableStatement cs;
-
+            System.out.println("ALTA ARTICULOS");
             for (int i = 0; i < articulos.size(); i++) {
+                System.out.println("ALTA ARTICULOS");
                 cs = GenConexionMod.getConexion().prepareCall("{call altaArticulo_IN(?,?,?,?,?,?)}");
                 //establecemos los valores de los parámetros.
                 cs.setString(1, articulos.get(i).getNombre());

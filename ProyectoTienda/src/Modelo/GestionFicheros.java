@@ -30,12 +30,8 @@ import org.w3c.dom.Text;
  */
 public class GestionFicheros {
 
-    public static void main(String[] args) throws IOException {
-       
-    }
-
-    public static void generarXML() throws Exception {
-        String name = "historialVentas";
+    public static void generarXML(String url) throws Exception {
+        String name = "fichero.xml";
         ArrayList<Venta> ventas = Venta.getVentas();
 
         if (ventas.isEmpty()) {
@@ -92,7 +88,7 @@ public class GestionFicheros {
             //Generate XML
             Source source = new DOMSource(document);
             //Indicamos donde lo queremos almacenar
-            Result result = new StreamResult(new java.io.File(name + ".xml")); //nombre del archivo
+            Result result = new StreamResult(new java.io.File(url)); //nombre del archivo
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
         }
@@ -107,11 +103,11 @@ public class GestionFicheros {
         }
         return o;
     }
-
-    public static String[][] leerFicheroTexto() throws FileNotFoundException, IOException, SQLException {
-        FileReader fr = new FileReader("productos.txt");
+    
+    public static String[][] leerFicheroTexto(String ruta) throws FileNotFoundException, IOException, SQLException {
+        FileReader fr = new FileReader(ruta);
         BufferedReader br = new BufferedReader(fr);
-        String[][] articuloss = new String[longitudTXT()][7];
+        String[][] articuloss = new String[longitudTXT()][6];
         ArrayList<Articulo> articulos = new ArrayList<>();
         br.readLine();
         br.readLine();
@@ -123,20 +119,18 @@ public class GestionFicheros {
             String[] datos = linea.trim().split("::");
             //convierte a String[][] la linea
             Articulo articulo = new Articulo();
-            articulo.setIdArticulo(Integer.valueOf(datos[1]));
-            articulo.setNombre(datos[2]);
-            articulo.setProductora(datos[3]);
-            articulo.setClasificacion(datos[4]);
-            articulo.setGenero(datos[5]);
-            articulo.setStock(Integer.valueOf(datos[6]));
-            articulo.setPrecio(Float.valueOf(datos[7]));
+            articulo.setProductora(datos[1]);
+            articulo.setClasificacion(datos[2]);
+            articulo.setGenero(datos[3]);
+            articulo.setStock(Integer.valueOf(datos[4]));
+            articulo.setPrecio(Float.valueOf(datos[5]));
             articulos.add(articulo);       
             for (int u=0; u<datos.length;u++){
-                System.out.println(datos[u]);
                 articuloss[i][u]=datos[u];
             }
+            AltaBajaArticulo.altaArticul(articulo);
         }
-        AltaBajaArticulo.altaArticulos(articulos);
+
         br.close();
         return articuloss;
     }

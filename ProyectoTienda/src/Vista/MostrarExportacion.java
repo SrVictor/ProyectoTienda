@@ -20,21 +20,20 @@ import javax.swing.table.*;
  *
  * @author Alumno
  */
-public class MostrarVentasVista extends PlantillaVista {
+public class MostrarExportacion extends PlantillaVista {
 
     JTable table;
     JFrame frame;
     JPanel panelTop;
-    JButton btnActualizar, btnExportar;
+    JButton btnCancelar;
     String[][] articulos;
-    public static String ACTUALIZAR = "Actualizar";
-    public static String EXPORTAR = "Exportar";
+    public static final String CANCELAR = "Cancelar";
 
-    public MostrarVentasVista(String[][] venta) throws SQLException {
-        frame = new JFrame("Mostrar Ventas");
+    public MostrarExportacion(String[][] archivo) throws SQLException {
+        frame = new JFrame("Exportar Datos");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.add(construyePanelTop());
-        frame.add(construyePanelFrontal(venta));
+        frame.add(construyePanelFrontal(archivo));
         frame.pack();
         frame.setVisible(true);
 
@@ -44,20 +43,17 @@ public class MostrarVentasVista extends PlantillaVista {
         panelTop = new JPanel();
         panelTop.setLayout(new GridLayout(1, 2, 0, 5)); //(Filas, Columnas, Espacio altura, Espacio Anchuta)
 
- 
-        btnActualizar = new JButton("Actualizar");
-        btnActualizar.setActionCommand(ACTUALIZAR);
-        btnExportar = new JButton("Exportar");
-        btnExportar.setActionCommand(EXPORTAR);
 
-        panelTop.add(btnActualizar);
-        panelTop.add(btnExportar);
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setActionCommand(CANCELAR);
+
+        panelTop.add(btnCancelar);
 
         return panelTop;
     }
-    
-    JScrollPane construyePanelFrontal(String[][] venta) throws SQLException {
-        String[] columnNames = {"idVenta", "idArticulo", "fechaTransaccion", "cantidad", "precioTotal","nombre","productora","clasificacion","genero","precio(Unidad)"};
+
+    JScrollPane construyePanelFrontal(String[][] archivo) throws SQLException {
+        String[] columnNames = {"nombre", "productora", "clasificacion", "genero", "stock", "precio"};
 
         table = new JTable();
         // Creamos el modelo, la parte que contenrá los datos de la tabla
@@ -66,7 +62,7 @@ public class MostrarVentasVista extends PlantillaVista {
         TableRowSorter sorter = new TableRowSorter(
                 model);
         // Añadimos al modelo los datos que queremos que contenga la tabla
-        model.setDataVector(venta, columnNames);
+        model.setDataVector(archivo, columnNames);
         // Le decimos a la tabla que use el modelo de datos que hemos creado
         table.setModel(model);
         // Le decimos a la tabla que use la ordenación de filas que hemos
@@ -78,13 +74,8 @@ public class MostrarVentasVista extends PlantillaVista {
         return scroll;
     }
 
-    public static void generarTabla(String[][] venta) throws SQLException {
-        MostrarVentasVista frame = new MostrarVentasVista(venta);
-    }
-
-    public void setControlador(MostrarVentasControlador escucharBoton) {
-        btnActualizar.addActionListener(escucharBoton);
-        btnExportar.addActionListener(escucharBoton);
+    public void setControlador(ControlarExportacion escucharBoton) {
+        btnCancelar.addActionListener(escucharBoton);
     }
 
 }

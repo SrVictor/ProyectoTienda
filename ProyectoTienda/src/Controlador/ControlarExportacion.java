@@ -13,23 +13,18 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MostrarVentasControlador implements ActionListener {
+public class ControlarExportacion implements ActionListener {
 
-    private MostrarVentasVista vista;
-    private VisualizarMod modelo;
-    
-    public MostrarVentasControlador(MostrarVentasVista vista) {
+    private MostrarExportacion vista;
+    private GestionFicheros modelo;
+
+    public ControlarExportacion(MostrarExportacion vista) {
         this.vista = vista;
     }
 
     public void actionPerformed(ActionEvent evento) {
-        modelo = new VisualizarMod();
-       if (evento.getActionCommand().equals(MostrarVentasVista.ACTUALIZAR)) {
+        modelo = new GestionFicheros();
+        if (evento.getActionCommand().equals(MostrarExportacion.CANCELAR)) {
             vista.cerrarVentana();}
-            else if (evento.getActionCommand().equals(MostrarVentasVista.EXPORTAR)) {
-            VentanaSeleccionarXML vsf = new VentanaSeleccionarXML();
-            vsf.setVisible(true);
-        }
-
     }
 }
