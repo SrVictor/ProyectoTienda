@@ -108,7 +108,6 @@ public class GestionFicheros {
         FileReader fr = new FileReader(ruta);
         BufferedReader br = new BufferedReader(fr);
         String[][] articuloss = new String[longitudTXT()][6];
-        ArrayList<Articulo> articulos = new ArrayList<>();
         br.readLine();
         br.readLine();
         br.readLine();
@@ -119,12 +118,12 @@ public class GestionFicheros {
             String[] datos = linea.trim().split("::");
             //convierte a String[][] la linea
             Articulo articulo = new Articulo();
+            articulo.setNombre(datos[0]);
             articulo.setProductora(datos[1]);
             articulo.setClasificacion(datos[2]);
             articulo.setGenero(datos[3]);
             articulo.setStock(Integer.valueOf(datos[4]));
-            articulo.setPrecio(Float.valueOf(datos[5]));
-            articulos.add(articulo);       
+            articulo.setPrecio(Float.valueOf(datos[5]));       
             for (int u=0; u<datos.length;u++){
                 articuloss[i][u]=datos[u];
             }

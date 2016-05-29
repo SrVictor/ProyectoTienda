@@ -13,20 +13,30 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class MostrarVentasControlador implements ActionListener {
 
     private MostrarVentasVista vista;
     private VisualizarMod modelo;
-    
+
     public MostrarVentasControlador(MostrarVentasVista vista) {
         this.vista = vista;
     }
 
     public void actionPerformed(ActionEvent evento) {
         modelo = new VisualizarMod();
-       if (evento.getActionCommand().equals(MostrarVentasVista.ACTUALIZAR)) {
-            vista.cerrarVentana();}
-            else if (evento.getActionCommand().equals(MostrarVentasVista.EXPORTAR)) {
+        if (evento.getActionCommand().equals(MostrarVentasVista.ACEPTAR)) {
+            try {
+                VisualizarMod.genArrayVentas(vista.getDateChooser(), vista.getDateChooser2());
+                vista.cerrarVentana();
+                MostrarVentasVista vista2 = new MostrarVentasVista(Venta.getVentass());
+                MostrarVentasControlador mvc = new MostrarVentasControlador(vista2);
+                vista2.setControlador(mvc);
+            } catch (SQLException ex) {
+                Logger.getLogger(MostrarVentasControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (evento.getActionCommand().equals(MostrarVentasVista.EXPORTAR)) {
             VentanaSeleccionarXML vsf = new VentanaSeleccionarXML();
             vsf.setVisible(true);
         }

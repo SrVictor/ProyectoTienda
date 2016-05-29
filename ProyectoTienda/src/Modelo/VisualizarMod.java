@@ -8,7 +8,12 @@ package Modelo;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -59,6 +64,41 @@ public class VisualizarMod {
             Articulo articulo = genArticulo(rs.getInt(2));
             Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getFloat(5), rs.getInt(2), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
             Venta.anadirVenta(venta);
+        }
+    }
+
+    public static void genArrayVentas(String fecha11, String fecha22) throws SQLException {
+        try {
+            if (Venta.getVentas() != null) {
+                Venta.getVentas().clear();
+            }
+            System.out.println("Fecha 1: " + fecha11);
+            System.out.println("Fecha 2: " + fecha22);
+            System.out.println("genaRRAYVentaS(fecha1,fecha2)");
+            DateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date fecha = null;
+            java.sql.Date fecha1 = null;
+            fecha = ft.parse(fecha11);
+            fecha1 = new java.sql.Date(fecha.getTime());
+
+            fecha = null;
+            java.sql.Date fecha2 = null;
+            fecha = ft.parse(fecha22);
+            fecha2 = new java.sql.Date(fecha.getTime());
+
+            System.out.println("Fecha 1: " + fecha1);
+            System.out.println("Fecha 2: " + fecha2);
+
+            String sentenciaSQL = "SELECT * FROM `historialventas` WHERE fechaTransaccion > \"" + fecha1 + "\" AND fechaTransaccion < \"" + fecha2 + "\";";
+            ResultSet rs = GenConexionMod.ejecutaQuery(sentenciaSQL);
+
+            while (rs.next()) {
+                Articulo articulo = genArticulo(rs.getInt(2));
+                Venta venta = new Venta(rs.getInt(1), rs.getDate(3).toString(), rs.getInt(4), rs.getFloat(5), rs.getInt(2), articulo.getNombre(), articulo.getProductora(), articulo.getClasificacion(), articulo.getGenero(), articulo.getStock(), articulo.getPrecio());
+                Venta.anadirVenta(venta);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(VisualizarMod.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -149,6 +189,28 @@ public class VisualizarMod {
         System.out.println("VentasToArray()");
         genArrayVentas();
         ArrayList<Venta> ventas = Venta.getVentas();
+        String[][] venta = new String[ventas.size()][10];
+
+        for (int i = 0; i < ventas.size(); i++) {
+            venta[i][0] = String.valueOf(ventas.get(i).getIdVenta());
+            venta[i][1] = String.valueOf(ventas.get(i).getIdArticulo());
+            System.out.println("IdArticulo: " + ventas.get(i).getIdArticulo());
+            venta[i][2] = ventas.get(i).getFechaTransacción();
+            venta[i][3] = String.valueOf(ventas.get(i).getCantidad());
+            venta[i][4] = String.valueOf(ventas.get(i).getPrecioTotal());
+            venta[i][5] = ventas.get(i).getNombre();
+            System.out.println("Nombre: " + ventas.get(i).getNombre());
+            venta[i][6] = ventas.get(i).getProductora();
+            venta[i][7] = ventas.get(i).getClasificacion();
+            venta[i][8] = ventas.get(i).getGenero();
+            venta[i][9] = String.valueOf(ventas.get(i).getPrecio());
+
+        }
+        Venta.setVent(venta);
+    }
+
+    public static void VentasToArray(ArrayList<Venta> ventas) throws SQLException {
+        System.out.println("VentasToArray()");
         String[][] venta = new String[ventas.size()][10];
 
         for (int i = 0; i < ventas.size(); i++) {

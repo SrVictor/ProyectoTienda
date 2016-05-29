@@ -86,6 +86,11 @@ public class Venta extends Articulo {
         return vent;
     }
 
+    public static String[][] getVentass() throws SQLException {
+        VisualizarMod.VentasToArray(ventas);
+        return vent;
+    }
+
     public static void setVent(String[][] venta) {
         Venta.vent = venta;
     }
