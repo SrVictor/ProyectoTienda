@@ -46,6 +46,7 @@ public class MostrarVentasVista extends PlantillaVista {
         frame.add(construyePanelBot());
         frame.pack();
         frame.setSize(1500, 700);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
     }
@@ -57,7 +58,7 @@ public class MostrarVentasVista extends PlantillaVista {
         dateChooser = new JDateChooser();
         dateChooser.setDateFormatString("yyyy-MM-dd");
         dateChooser.setBounds(20, 20, 200, 20);
-        //frame.getContentPane().add(dateChooser);
+
         LHasta = new JLabel("Hasta (aaaa-MM-dd): ");
         dateChooser2 = new JDateChooser();
         dateChooser2.setDateFormatString("yyyy-MM-dd");

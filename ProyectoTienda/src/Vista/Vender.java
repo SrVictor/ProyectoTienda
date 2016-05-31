@@ -147,4 +147,7 @@ public class Vender extends PlantillaVista {
         return Integer.valueOf(LStockD.getText());
     }
 
+    public void cerrarVentana() {
+        frame.dispose();
+    }
 }

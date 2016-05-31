@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class VentanaSeleccionarTXT extends JFrame {
+public class VentanaSeleccionarTXT{
 
     /**
      * @return the fichero
@@ -28,7 +28,7 @@ public class VentanaSeleccionarTXT extends JFrame {
     public static void setFichero(File aFichero) {
         fichero = aFichero;
     }
-
+    private JFileChooser fc;
     private JPanel contentPane;
     private JTextField textField;
     private static File fichero;
@@ -39,19 +39,19 @@ public class VentanaSeleccionarTXT extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-//Creamos el objeto JFileChooser
-            JFileChooser fc = new JFileChooser();
+            //Creamos el objeto JFileChooser
+            fc = new JFileChooser();
 
             //Creamos el filtro
             FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.txt", "txt");
 
-//Le indicamos el filtro
+            //Le indicamos el filtro
             fc.setFileFilter(filtro);
 
-//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
+            //Abrimos la ventana, guardamos la opcion seleccionada por el usuario
             int seleccion = fc.showOpenDialog(contentPane);
 
-//Si el usuario, pincha en aceptar
+            //Si el usuario, pincha en aceptar
             if (seleccion == JFileChooser.APPROVE_OPTION) {
 
                 //Seleccionamos el fichero
@@ -61,9 +61,7 @@ public class VentanaSeleccionarTXT extends JFrame {
                 textField.setText(fichero.getAbsolutePath());
 
                 urlFichero = fichero.getAbsolutePath();
-
-            } else {
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                fc.cancelSelection();
             }
         }
     }
@@ -73,6 +71,7 @@ public class VentanaSeleccionarTXT extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                frame.dispose();
                 MostrarExportacion me = new MostrarExportacion(GestionFicheros.leerFicheroTexto(urlFichero));
                 ControlarExportacion cuc = new ControlarExportacion(me);
                 me.setControlador(cuc);
@@ -88,11 +87,11 @@ public class VentanaSeleccionarTXT extends JFrame {
      */
     public VentanaSeleccionarTXT() {
         //Parametros asociados a la ventana
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 150);
+        frame = new JFrame();
+        frame.setBounds(100, 100, 450, 150);
         contentPane = new JPanel();
         contentPane.setLayout(null);
-        setContentPane(contentPane);
+        frame.setContentPane(contentPane);
 
         textField = new JTextField();
         textField.setToolTipText("Inserta la ruta del fichero de texto");
@@ -107,7 +106,8 @@ public class VentanaSeleccionarTXT extends JFrame {
         JButton btAceptar = new JButton("Aceptar");
         btAceptar.setBounds(288, 60, 109, 23);
         contentPane.add(btAceptar);
-
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
         btSeleccionar.addActionListener(new VentanaSeleccionarTXT.EventoSeleccionar());
         btAceptar.addActionListener(new VentanaSeleccionarTXT.EventoAceptar());
 

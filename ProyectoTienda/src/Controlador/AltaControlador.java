@@ -56,6 +56,7 @@ public class AltaControlador implements ActionListener {
                 vista2.arranca();
 
         } else if (evento.getActionCommand().equals(AltaArticulo.CANCELAR)) {
+            vista.cerrarVentana();
         }
 
     }

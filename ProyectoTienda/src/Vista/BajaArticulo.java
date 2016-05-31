@@ -89,4 +89,7 @@ public class BajaArticulo extends PlantillaVista {
         return (Integer) Jcombo.getSelectedItem();
     }
 
+          public void cerrarVentana() {
+        frame.dispose();
+    }
 }

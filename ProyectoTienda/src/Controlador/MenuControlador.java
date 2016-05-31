@@ -30,13 +30,14 @@ public class MenuControlador implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent evento) {
+
         if (evento.getActionCommand().equals(MenuPrincipal.CREARUSUARIO)) {
             vistaUsuario = new CrearUsuario();
             CrearUsuarioControlador cuc = new CrearUsuarioControlador(vistaUsuario);
             vistaUsuario.setControlador(cuc);
             vistaUsuario.arranca();
+            
         } else if (evento.getActionCommand().equals(MenuPrincipal.ALTAARTICULO)) {
-
             SeleccionArticuloControlador.setMenu("Alta Articulo");
             vistaSeleccion = new SeleccionArticulo();
             SeleccionArticuloControlador sac = new SeleccionArticuloControlador(vistaSeleccion);
@@ -58,11 +59,10 @@ public class MenuControlador implements ActionListener {
             SeleccionArticuloControlador sac = new SeleccionArticuloControlador(vistaSeleccion);
             vistaSeleccion.setControlador(sac);
             vistaSeleccion.arranca();
-            
+
         } else if (evento.getActionCommand().equals(MenuPrincipal.IMPORTARARTICULOS)) {
             VentanaSeleccionarTXT vstxt = new VentanaSeleccionarTXT();
-            vstxt.setVisible(true);
-            
+
         } else if (evento.getActionCommand().equals(MenuPrincipal.RELLENARSTOCK)) {
             try {
                 vistaRellenar = new RellenarStock(Articulo.rellenarComboBoxID());
@@ -90,7 +90,7 @@ public class MenuControlador implements ActionListener {
             } catch (SQLException ex) {
                 Logger.getLogger(MenuControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         } else if (evento.getActionCommand().equals(MenuPrincipal.VISUALIZARVENTAS)) {
             try {
                 vistaVentas = new MostrarVentasVista(Venta.getVent());

@@ -42,7 +42,7 @@ public class CrearUsuario extends PlantillaVista {
 
         JCombo = new JComboBox();
         JCombo.addItem("Comercial");
-        JCombo.addItem("Grente");
+        JCombo.addItem("Gerente");
 
         LUsuario = new JLabel("Usuario: ");
         TUsuario = new JTextField(20);

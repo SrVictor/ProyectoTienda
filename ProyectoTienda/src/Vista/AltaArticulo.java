@@ -7,7 +7,10 @@ package Vista;
 
 import Controlador.*;
 import Modelo.*;
+import com.toedter.calendar.JDateChooser;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 
 /**
@@ -22,8 +25,9 @@ public class AltaArticulo extends PlantillaVista {
     public static final String CANCELAR = "Cancelar";
     private static JButton btnAceptar;
     private static JButton btnCancelar;
+    private JDateChooser dateChooser;
     private JTextField Tnombre, Tproductora, Tclasificacion, Tgenero, Tstock, Tprecio;
-    private JTextField TnombreDirector, Tpais, TfechaLanz, Tduracion;
+    private JTextField TnombreDirector, Tpais, Tduracion;
     private JTextField TnCapitulos, TnTemporadas;
     private static JLabel Lnombre, Lproductora, Lclasificacion, Lgenero, Lstock, Lprecio;
     private static JLabel LnombreDirector, Lpais, LfechaLanz, Lduracion;
@@ -49,17 +53,17 @@ public class AltaArticulo extends PlantillaVista {
     JPanel construyePanelTop() {
         topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(3, 4, 5, 5));
-        Lnombre = new JLabel("Nombre: *");
+        Lnombre = new JLabel("Nombre: ");
         Tnombre = new JTextField(20);
         Lproductora = new JLabel("Productora: ");
         Tproductora = new JTextField(20);
-        Lclasificacion = new JLabel("Clasificacion: *");
+        Lclasificacion = new JLabel("Clasificacion: ");
         Tclasificacion = new JTextField(3);
-        Lgenero = new JLabel("Genero: *");
+        Lgenero = new JLabel("Genero: ");
         Tgenero = new JTextField(20);
-        Lstock = new JLabel("Stock: *");
+        Lstock = new JLabel("Stock: ");
         Tstock = new JTextField(4);
-        Lprecio = new JLabel("Precio: *");
+        Lprecio = new JLabel("Precio: ");
         Tprecio = new JTextField(3);
         topPanel.add(Lnombre);
         topPanel.add(Tnombre);
@@ -80,9 +84,9 @@ public class AltaArticulo extends PlantillaVista {
     JPanel construyePanelSerie() {
         panelSerie = new JPanel();
         panelSerie.setLayout(new GridLayout(1, 4, 5, 5));
-        LnCapitulos = new JLabel("nCapitulos: *");
+        LnCapitulos = new JLabel("nCapitulos: ");
         TnCapitulos = new JTextField(4);
-        LnTemporadas = new JLabel("nTemporadas:*");
+        LnTemporadas = new JLabel("nTemporadas:");
         TnTemporadas = new JTextField(2);
         panelSerie.add(LnCapitulos);
         panelSerie.add(TnCapitulos);
@@ -95,20 +99,22 @@ public class AltaArticulo extends PlantillaVista {
     JPanel construyePanelPelicula() {
         panelPelicula = new JPanel();
         panelPelicula.setLayout(new GridLayout(2, 4, 5, 5));
-        LnombreDirector = new JLabel("Nombre Director: *");
+        LnombreDirector = new JLabel("Nombre Director: ");
         TnombreDirector = new JTextField(20);
-        Lpais = new JLabel("Pais:*");
+        Lpais = new JLabel("Pais:");
         Tpais = new JTextField(20);
-        LfechaLanz = new JLabel("Fecha (aaaa-mm-dd): *");
-        TfechaLanz = new JTextField(10);
-        Lduracion = new JLabel("Duracion:*");
+        LfechaLanz = new JLabel("Fecha (aaaa-mm-dd): ");
+        dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        dateChooser.setBounds(20, 20, 200, 20);
+        Lduracion = new JLabel("Duracion:");
         Tduracion = new JTextField(3);
         panelPelicula.add(LnombreDirector);
         panelPelicula.add(TnombreDirector);
         panelPelicula.add(Lpais);
         panelPelicula.add(Tpais);
         panelPelicula.add(LfechaLanz);
-        panelPelicula.add(TfechaLanz);
+        panelPelicula.add(dateChooser);
         panelPelicula.add(Lduracion);
         panelPelicula.add(Tduracion);
 
@@ -117,13 +123,11 @@ public class AltaArticulo extends PlantillaVista {
 
     JPanel construyePanelBot() {
         panelBot = new JPanel();
-        panelBot.setLayout(new GridLayout(1, 3, 5, 5));
-        Lobligatorio = new JLabel("Campos obligatorios (*)");
+        panelBot.setLayout(new GridLayout(1, 2, 5, 5));
         btnAceptar = new JButton("Aceptar");
         btnAceptar.setActionCommand("Aceptar");
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setActionCommand("Cancelar");
-        panelBot.add(Lobligatorio);
         panelBot.add(btnAceptar);
         panelBot.add(btnCancelar);
 
@@ -140,7 +144,14 @@ public class AltaArticulo extends PlantillaVista {
     }
 
     public Pelicula generarPelicula() {
-        return new Pelicula(TnombreDirector.getText(), Tpais.getText(), TfechaLanz.getText(), Integer.valueOf(Tduracion.getText()), Tnombre.getText(), Tproductora.getText(), Tclasificacion.getText(), Tgenero.getText(), Integer.valueOf(Tstock.getText()), Float.valueOf(Tprecio.getText()));
+        String formato = dateChooser.getDateFormatString();
+        Date date = dateChooser.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat(formato);
+        String fecha =String.valueOf(sdf.format(date));
+        return new Pelicula(TnombreDirector.getText(), Tpais.getText(), fecha, Integer.valueOf(Tduracion.getText()), Tnombre.getText(), Tproductora.getText(), Tclasificacion.getText(), Tgenero.getText(), Integer.valueOf(Tstock.getText()), Float.valueOf(Tprecio.getText()));
     }
 
+       public void cerrarVentana() {
+        frame.dispose();
+    }
 }

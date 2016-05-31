@@ -38,9 +38,9 @@ public class RellenarStock extends PlantillaVista {
         frame.pack();// coloca los componentes
         frame.setLocationRelativeTo(null);// centra la ventana en la pantalla
         frame.setVisible(true);
-}
+    }
 
-JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
+    JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
         topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(5, 2, 5, 5));
 
@@ -49,16 +49,16 @@ JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
         // Accion a realizar cuando el JComboBox cambia de item seleccionado.
         Jcombo.addActionListener(new ActionListener() {
             @Override
-        public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 int idArticulo = (Integer) Jcombo.getSelectedItem();
                 try {
                     Articulo articulo = VisualizarMod.genArticulo(idArticulo);
                     LnombreD.setText(articulo.getNombre());
                     LStockD.setText(String.valueOf(articulo.getStock()));
 
-} catch (SQLException ex) {
+                } catch (SQLException ex) {
                     Logger.getLogger(RellenarStock.class
-.getName()).log(Level.SEVERE, null, ex);
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -69,7 +69,7 @@ JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
         LStock = new JLabel("Stock: ");
         LStockD = new JLabel("");
         LCantidad = new JLabel("Cantidad");
-        TCantidad= new JTextField();
+        TCantidad = new JTextField();
 
         topPanel.add(LidArticulo);
         topPanel.add(Jcombo);
@@ -100,6 +100,9 @@ JPanel construyePanelTop(JComboBox comboBox) throws SQLException {
     public static int getTCantidad() {
         return Integer.valueOf(TCantidad.getText());
     }
-    
+
+    public void cerrarVentana() {
+        frame.dispose();
+    }
 
 }

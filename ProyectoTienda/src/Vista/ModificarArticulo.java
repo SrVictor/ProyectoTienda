@@ -22,7 +22,7 @@ import javax.swing.*;
 public class ModificarArticulo extends PlantillaVista {
 
     private static String tipo;
-    static JComboBox  Jcombo;
+    static JComboBox Jcombo;
     JFrame frame;
     JPanel topPanel, panelSerie, panelPelicula, panelBot, comboPanel;
     public static final String ACEPTAR = "Aceptar";
@@ -35,7 +35,7 @@ public class ModificarArticulo extends PlantillaVista {
     private static JLabel Lnombre, Lproductora, Lclasificacion, Lgenero, Lstock, Lprecio;
     private static JLabel LnombreDirector, Lpais, LfechaLanz, Lduracion;
     private static JLabel LnCapitulos, LnTemporadas;
-    private static JLabel LidArticulo, Lobligatorio;
+    private static JLabel LidArticulo;
 
     public ModificarArticulo(String articulo, JComboBox comboBox) {
         tipo = articulo;
@@ -94,7 +94,7 @@ public class ModificarArticulo extends PlantillaVista {
 
             }
         });
-        
+
         comboPanel.add(LidArticulo);
         comboPanel.add(Jcombo);
         return comboPanel;
@@ -103,17 +103,17 @@ public class ModificarArticulo extends PlantillaVista {
     JPanel construyePanelTop() {
         topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(3, 4, 5, 5));
-        Lnombre = new JLabel("Nombre: *");
+        Lnombre = new JLabel("Nombre: ");
         Tnombre = new JTextField(20);
         Lproductora = new JLabel("Productora: ");
         Tproductora = new JTextField(20);
-        Lclasificacion = new JLabel("Clasificacion: *");
+        Lclasificacion = new JLabel("Clasificacion: ");
         Tclasificacion = new JTextField(3);
-        Lgenero = new JLabel("Genero: *");
+        Lgenero = new JLabel("Genero: ");
         Tgenero = new JTextField(20);
-        Lstock = new JLabel("Stock: *");
+        Lstock = new JLabel("Stock: ");
         Tstock = new JTextField(4);
-        Lprecio = new JLabel("Precio: *");
+        Lprecio = new JLabel("Precio: ");
         Tprecio = new JTextField(3);
         topPanel.add(Lnombre);
         topPanel.add(Tnombre);
@@ -134,9 +134,9 @@ public class ModificarArticulo extends PlantillaVista {
     JPanel construyePanelSerie() {
         panelSerie = new JPanel();
         panelSerie.setLayout(new GridLayout(1, 4, 5, 5));
-        LnCapitulos = new JLabel("nCapitulos: *");
+        LnCapitulos = new JLabel("nCapitulos: ");
         TnCapitulos = new JTextField(4);
-        LnTemporadas = new JLabel("nTemporadas:*");
+        LnTemporadas = new JLabel("nTemporadas:");
         TnTemporadas = new JTextField(2);
         panelSerie.add(LnCapitulos);
         panelSerie.add(TnCapitulos);
@@ -149,13 +149,13 @@ public class ModificarArticulo extends PlantillaVista {
     JPanel construyePanelPelicula() {
         panelPelicula = new JPanel();
         panelPelicula.setLayout(new GridLayout(2, 4, 5, 5));
-        LnombreDirector = new JLabel("Nombre Director: *");
+        LnombreDirector = new JLabel("Nombre Director: ");
         TnombreDirector = new JTextField(20);
-        Lpais = new JLabel("Pais:*");
+        Lpais = new JLabel("Pais:");
         Tpais = new JTextField(20);
-        LfechaLanz = new JLabel("Fecha (aaaa-mm-dd): *");
+        LfechaLanz = new JLabel("Fecha (aaaa-mm-dd): ");
         TfechaLanz = new JTextField(10);
-        Lduracion = new JLabel("Duracion:*");
+        Lduracion = new JLabel("Duracion:");
         Tduracion = new JTextField(3);
         panelPelicula.add(LnombreDirector);
         panelPelicula.add(TnombreDirector);
@@ -171,13 +171,11 @@ public class ModificarArticulo extends PlantillaVista {
 
     JPanel construyePanelBot() {
         panelBot = new JPanel();
-        panelBot.setLayout(new GridLayout(1, 3, 5, 5));
-        Lobligatorio = new JLabel("Campos obligatorios (*)");
+        panelBot.setLayout(new GridLayout(1, 2, 5, 5));
         btnAceptar = new JButton("Aceptar");
         btnAceptar.setActionCommand("Aceptar");
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setActionCommand("Cancelar");
-        panelBot.add(Lobligatorio);
         panelBot.add(btnAceptar);
         panelBot.add(btnCancelar);
 
@@ -194,7 +192,7 @@ public class ModificarArticulo extends PlantillaVista {
     }
 
     public Serie generarSerie() {
-        System.out.println("IDArticulo: " + Jcombo.getSelectedItem() );
+        System.out.println("IDArticulo: " + Jcombo.getSelectedItem());
         return new Serie(Integer.valueOf(TnCapitulos.getText()), Integer.valueOf(TnTemporadas.getText()), (int) Jcombo.getSelectedItem(), Tnombre.getText(), Tproductora.getText(), Tclasificacion.getText(), Tgenero.getText(), Integer.valueOf(Tstock.getText()), Float.valueOf(Tprecio.getText()));
     }
 
@@ -204,5 +202,9 @@ public class ModificarArticulo extends PlantillaVista {
 
     public static int getJcombo() {
         return (Integer) Jcombo.getSelectedItem();
+    }
+
+    public void cerrarVentana() {
+        frame.dispose();
     }
 }
