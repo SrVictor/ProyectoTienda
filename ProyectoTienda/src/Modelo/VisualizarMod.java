@@ -187,6 +187,27 @@ public class VisualizarMod {
         Serie.setSerie(serie);
     }
 
+    public static void PeliculasToArray() throws SQLException {
+        genArrayPeliculas();
+        ArrayList<Pelicula> peliculas = Pelicula.getPeliculas();
+        String[][] pelicula = new String[peliculas.size()][11];
+
+        for (int i = 0; i < peliculas.size(); i++) {
+            pelicula[i][0] = String.valueOf(peliculas.get(i).getIdArticulo());
+            pelicula[i][1] = peliculas.get(i).getNombre();
+            pelicula[i][2] = peliculas.get(i).getProductora();
+            pelicula[i][3] = peliculas.get(i).getClasificacion();
+            pelicula[i][4] = peliculas.get(i).getGenero();
+            pelicula[i][5] = String.valueOf(peliculas.get(i).getStock());
+            pelicula[i][6] = String.valueOf(peliculas.get(i).getPrecio());
+            pelicula[i][7] = String.valueOf(peliculas.get(i).getNombreDirector());
+            pelicula[i][8] = String.valueOf(peliculas.get(i).getPais());
+            pelicula[i][9] = String.valueOf(peliculas.get(i).getFechaLanz());
+            pelicula[i][10] = String.valueOf(peliculas.get(i).getDuracion());
+        }
+        Pelicula.setPeliculass(pelicula);
+    }
+
     public static void VentasToArray() throws SQLException {
         System.out.println("VentasToArray()");
         genArrayVentas();
@@ -269,15 +290,15 @@ public class VisualizarMod {
         ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Articulos WHERE " + filtro + " = \"" + dato + "\";");
         ArrayList<Articulo> articulos = new ArrayList<>();
         while (rs.next()) {
-            Articulo articulo = genArticulo(rs.getInt(2));
+            Articulo articulo = genArticulo(rs.getInt(1));
             articulos.add(articulo);
         }
         return articulos;
     }
-    
-    public static void FiltroToStringArticulo(String filtro, String dato) throws SQLException {
-        
-        ArrayList<Articulo> articulos = genFiltroArticulos(filtro,dato);
+
+    public static String[][] FiltroToStringArticulo(String filtro, String dato) throws SQLException {
+
+        ArrayList<Articulo> articulos = genFiltroArticulos(filtro, dato);
         String[][] articulo = new String[articulos.size()][7];
 
         for (int i = 0; i < articulos.size(); i++) {
@@ -292,7 +313,73 @@ public class VisualizarMod {
             articulo[i][6] = String.valueOf(articulos.get(i).getPrecio());
 
         }
-        Articulo.setArticul(articulo);
+        return articulo;
     }
-    
+
+    public static Serie genFiltroSeries(String idArticulo) throws SQLException {
+        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT nCapitulos,nTemporadas FROM Series WHERE idArticulo = \"" + idArticulo + "\";");
+        Serie serie = new Serie();
+        while (rs.next()) {
+            serie = new Serie(rs.getInt(1), rs.getInt(2));
+        }
+        return serie;
+    }
+
+    public static String[][] FiltroToStringSerie(String filtro, String dato) throws SQLException {
+        ArrayList<Articulo> articulos = genFiltroArticulos(filtro, dato);
+        String[][] serie = new String[articulos.size()][9];
+
+        for (int i = 0; i < articulos.size(); i++) {
+            serie[i][0] = String.valueOf(articulos.get(i).getIdArticulo());
+            System.out.println("IdArticulo: " + articulos.get(i).getIdArticulo());
+            serie[i][1] = articulos.get(i).getNombre();
+            System.out.println("Nombre: " + articulos.get(i).getNombre());
+            serie[i][2] = articulos.get(i).getProductora();
+            serie[i][3] = articulos.get(i).getClasificacion();
+            serie[i][4] = articulos.get(i).getGenero();
+            serie[i][5] = String.valueOf(articulos.get(i).getStock());
+            serie[i][6] = String.valueOf(articulos.get(i).getPrecio());
+            Serie serie1 = genFiltroSeries(serie[i][0]);
+            serie[i][7] = String.valueOf(serie1.getnCapitulos());
+            serie[i][8] = String.valueOf(serie1.getnTemporadas());
+
+        }
+        return serie;
+    }
+
+    public static Pelicula genFiltroPeliculas(String idArticulo) throws SQLException {
+        ResultSet rs = GenConexionMod.ejecutaQuery("SELECT * FROM Series WHERE idArticulo = \"" + idArticulo + "\";");
+        Pelicula pelicula = new Pelicula();
+        while (rs.next()) {
+            pelicula.setNombreDirector(rs.getString(2));
+            pelicula.setPais(rs.getString(3));
+            pelicula.setFechaLanz(rs.getDate(4).toString());
+            pelicula.setDuracion(rs.getInt(5));
+        }
+        return pelicula;
+    }
+
+    public static String[][] FiltroToStringPelicula(String filtro, String dato) throws SQLException {
+        ArrayList<Articulo> articulos = genFiltroArticulos(filtro, dato);
+        String[][] pelicula = new String[articulos.size()][11];
+
+        for (int i = 0; i < articulos.size(); i++) {
+            pelicula[i][0] = String.valueOf(articulos.get(i).getIdArticulo());
+            System.out.println("IdArticulo: " + articulos.get(i).getIdArticulo());
+            pelicula[i][1] = articulos.get(i).getNombre();
+            System.out.println("Nombre: " + articulos.get(i).getNombre());
+            pelicula[i][2] = articulos.get(i).getProductora();
+            pelicula[i][3] = articulos.get(i).getClasificacion();
+            pelicula[i][4] = articulos.get(i).getGenero();
+            pelicula[i][5] = String.valueOf(articulos.get(i).getStock());
+            pelicula[i][6] = String.valueOf(articulos.get(i).getPrecio());
+            Pelicula pelicula1 = genFiltroPeliculas(pelicula[i][0]);
+            pelicula[i][7] = pelicula1.getNombreDirector();
+            pelicula[i][8] = pelicula1.getPais();
+            pelicula[i][9] = pelicula1.getFechaLanz();
+            pelicula[i][10] = String.valueOf(pelicula1.getDuracion());
+        }
+        return pelicula;
+    }
+
 }

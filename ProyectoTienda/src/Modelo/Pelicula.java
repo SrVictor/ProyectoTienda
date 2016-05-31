@@ -11,6 +11,7 @@ public class Pelicula extends Articulo {
     private String fechaLanz;
     private int duracion;
     private static ArrayList<Pelicula> peliculas;
+    private static String[][] pelicula;
 
     public Pelicula(String nombreDirector, String pais, String fechaLanz, int duracion, int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
         super(idArticulo, nombre, productora, clasificacion, genero, stock, precio);
@@ -35,6 +36,11 @@ public class Pelicula extends Articulo {
     public Pelicula(int idArticulo, String nombre, String productora, String clasificacion, String genero, int stock, float precio) {
         super(idArticulo, nombre, productora, clasificacion, genero, stock, precio);
     }
+
+    public Pelicula() {
+    }
+    
+    
 
     public static JComboBox rellenarComboBoxID() throws SQLException {
         VisualizarMod.genArrayPeliculas();
@@ -89,6 +95,15 @@ public class Pelicula extends Articulo {
 
     public static void anadirPelicula(Pelicula pelicula) {
         peliculas.add(pelicula);
+    }
+
+    public static String[][] getPeliculass() throws SQLException {
+        VisualizarMod.PeliculasToArray();
+        return pelicula;
+    }
+
+    public static void setPeliculass(String[][] pel) {
+        pelicula=pel;
     }
 
 }

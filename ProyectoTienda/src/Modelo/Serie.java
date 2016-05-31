@@ -29,6 +29,13 @@ public class Serie extends Articulo {
 
     public Serie() {
     }
+
+    public Serie(int nCapitulos, int nTemporadas) {
+        this.nCapitulos = nCapitulos;
+        this.nTemporadas = nTemporadas;
+    }
+    
+    
     
     public static JComboBox rellenarComboBoxID() throws SQLException {
         VisualizarMod.genArraySeries();

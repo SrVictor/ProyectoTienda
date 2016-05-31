@@ -7,6 +7,7 @@ package Vista;
  */
 import Controlador.BajaArticuloControlador;
 import Controlador.MostrarArticulosControlador;
+import Controlador.MostrarPeliculasControlador;
 import Controlador.MostrarSeriesControlador;
 import Modelo.Articulo;
 import Modelo.VisualizarMod;
@@ -41,7 +42,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Alumno
  */
-public class MostrarSeriesVista extends PlantillaVista {
+public class MostrarPeliculasVista extends PlantillaVista {
 
     private JComboBox filtros;
     private JTable table;
@@ -57,8 +58,8 @@ public class MostrarSeriesVista extends PlantillaVista {
     public static String ACTUALIZAR = "Actualizar";
     public static String MOSTRAR = "Mostrar";
 
-    public MostrarSeriesVista(String[][] articulo) throws SQLException {
-        frame = new JFrame("Mostrar Series");
+    public MostrarPeliculasVista(String[][] articulo) throws SQLException {
+        frame = new JFrame("Mostrar Peliculas");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.add(construyePanelTop());
         frame.add(construyePanelFrontal(articulo));
@@ -89,7 +90,7 @@ public class MostrarSeriesVista extends PlantillaVista {
     }
 
     JScrollPane construyePanelFrontal(String[][] articulo) throws SQLException {
-        columnNames = new String[]{"idArticulo", "nombre", "productora", "clasificacion", "genero", "stock", "precio", "nCapitulos", "nTemporadas"};
+        columnNames = new String[]{"idArticulo", "nombre", "productora", "clasificacion", "genero", "stock", "precio", "nombreDirector", "pais", "fechaLanz", "duracion"};
 
         table = new JTable();
         // Creamos el modelo, la parte que contenrá los datos de la tabla
@@ -134,7 +135,7 @@ public class MostrarSeriesVista extends PlantillaVista {
         MostrarArticulosVista frame = new MostrarArticulosVista(articulo);
     }
 
-    public void setControlador(MostrarSeriesControlador escucharBoton) {
+    public void setControlador(MostrarPeliculasControlador escucharBoton) {
         btnFiltrar.addActionListener(escucharBoton);
         btnMostrar.addActionListener(escucharBoton);
         btnActualizar.addActionListener(escucharBoton);

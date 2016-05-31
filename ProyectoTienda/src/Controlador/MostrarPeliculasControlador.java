@@ -13,20 +13,20 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MostrarSeriesControlador implements ActionListener {
+public class MostrarPeliculasControlador implements ActionListener {
 
-    private MostrarSeriesVista vista;
+    private MostrarPeliculasVista vista;
     private VisualizarMod modelo;
     private MostrarArticulosVista vista2;
-    private MostrarPeliculasVista vista3;
+    private MostrarSeriesVista vista3;
 
-    public MostrarSeriesControlador(MostrarSeriesVista vista) {
+    public MostrarPeliculasControlador(MostrarPeliculasVista vista) {
         this.vista = vista;
     }
 
     public void actionPerformed(ActionEvent evento) {
         modelo = new VisualizarMod();
-        if (evento.getActionCommand().equals(MostrarSeriesVista.MOSTRAR)) {
+        if (evento.getActionCommand().equals(MostrarPeliculasVista.MOSTRAR)) {
             try {
                 if (vista.getJcombo().equals("Articulos")) {
                     VisualizarMod.ArticulosToArray();
@@ -34,24 +34,24 @@ public class MostrarSeriesControlador implements ActionListener {
                     vista2 = new MostrarArticulosVista(Articulo.getArticul());
                     MostrarArticulosControlador msc = new MostrarArticulosControlador(vista2);
                     vista2.setControlador(msc);
-                } else if (vista.getJcombo().equals("Peliculas")) {
-                    VisualizarMod.genArrayPeliculas();
+                } else if (vista.getJcombo().equals("Series")) {
+                    VisualizarMod.SeriesToArray();
                     vista.cerrarVentana();
-                    vista3 = new MostrarPeliculasVista(Pelicula.getPeliculass());
-                    MostrarPeliculasControlador msc = new MostrarPeliculasControlador(vista3);
+                    vista3 = new MostrarSeriesVista(Serie.getSerie());
+                    MostrarSeriesControlador msc = new MostrarSeriesControlador(vista3);
                     vista3.setControlador(msc);
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(MostrarSeriesControlador.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MostrarPeliculasControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
             vista.cerrarVentana();
         } else if (evento.getActionCommand().equals(MostrarArticulosVista.FILTRAR)) {
             try {
                 if (!vista.getTDato().equals("")) {
                     vista.cerrarVentana();
-                    MostrarSeriesVista vista2 = new MostrarSeriesVista(VisualizarMod.FiltroToStringSerie(vista.getFiltros(), vista.getTDato()));
-                    MostrarSeriesControlador mvc = new MostrarSeriesControlador(vista2);
+                    MostrarPeliculasVista vista2 = new MostrarPeliculasVista(VisualizarMod.FiltroToStringPelicula(vista.getFiltros(), vista.getTDato()));
+                    MostrarPeliculasControlador mvc = new MostrarPeliculasControlador(vista2);
                     vista2.setControlador(mvc);
                 }
             } catch (SQLException ex) {

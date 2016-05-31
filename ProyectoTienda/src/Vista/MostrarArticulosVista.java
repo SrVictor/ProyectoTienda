@@ -42,23 +42,27 @@ import javax.swing.table.TableRowSorter;
  */
 public class MostrarArticulosVista extends PlantillaVista {
 
-    JTable table;
+    private JComboBox filtros;
+    private JTable table;
     private JComboBox Jcombo;
-    private TableRowSorter<TableModel> modeloOrdenado;
-    JFrame frame;
-    JPanel panelTop;
-    JButton btnActualizar, btnFiltrar;
-    String[][] articulos;
+    private JFrame frame;
+    private JPanel panelTop, panelBot;
+    private JButton btnActualizar, btnFiltrar, btnMostrar;
+    private String[] columnNames;
+    private JLabel LFiltro, LDato;
+    private JTextField TFiltro, TDato;
     public static String FILTRAR = "Filtrar";
     public static String ACTUALIZAR = "Actualizar";
-    public static String MOSTRAR = "Actualizar";
+    public static String MOSTRAR = "Mostrar";
 
     public MostrarArticulosVista(String[][] articulo) throws SQLException {
         frame = new JFrame("Mostrar Articulos");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.add(construyePanelTop());
         frame.add(construyePanelFrontal(articulo));
+        frame.add(construyePanelBot());
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
     }
@@ -73,9 +77,9 @@ public class MostrarArticulosVista extends PlantillaVista {
 
         btnActualizar = new JButton("Actualizar");
         btnActualizar.setActionCommand("Actualizar");
-        btnFiltrar = new JButton("Filtrar");
-        btnFiltrar.setActionCommand("Filtrar");
-        panelTop.add(btnFiltrar);
+        btnMostrar = new JButton("Mostrar");
+        btnMostrar.setActionCommand(MOSTRAR);
+        panelTop.add(btnMostrar);
         panelTop.add(Jcombo);
         panelTop.add(btnActualizar);
 
@@ -83,7 +87,8 @@ public class MostrarArticulosVista extends PlantillaVista {
     }
 
     JScrollPane construyePanelFrontal(String[][] articulo) throws SQLException {
-        String[] columnNames = {"idArticulo", "nombre", "productora", "clasificacion", "genero", "stock", "precio"};
+
+        columnNames = new String[]{"idArticulo", "nombre", "productora", "clasificacion", "genero", "stock", "precio"};
 
         table = new JTable();
         // Creamos el modelo, la parte que contenrá los datos de la tabla
@@ -99,17 +104,6 @@ public class MostrarArticulosVista extends PlantillaVista {
         // creado
         table.setRowSorter(sorter);
 
-        table.getModel().addTableModelListener(new TableModelListener() {
-            public void tableChanged(TableModelEvent e) {
-                for (int i = 0; i < table.getRowCount(); i++) {
-                    for (int j = 0; j < table.getColumnCount(); j++) {
-                        System.out.print("Valor: ");
-                        System.out.println(table.getValueAt(i, j).toString());
-                    }
-                }
-            }
-        });
-
         JScrollPane scroll = new JScrollPane(table);
         frame.getContentPane().add(scroll);
         return scroll;
@@ -120,10 +114,9 @@ public class MostrarArticulosVista extends PlantillaVista {
         panelBot.setLayout(new GridLayout(1, 5, 0, 5)); //(Filas, Columnas, Espacio altura, Espacio Anchuta)
         LFiltro = new JLabel("Filtro: ");
         filtros = new JComboBox();
-        filtros.addItem("idVenta");
-        filtros.addItem("idArticulo");
-        filtros.addItem("cantidad");
-        filtros.addItem("precioTotal");
+        for (int i = 0; i < columnNames.length; i++) {
+            filtros.addItem(columnNames[i]);
+        }
         LDato = new JLabel("Dato: ");
         TDato = new JTextField();
         btnFiltrar = new JButton("Filtrar");
@@ -142,11 +135,24 @@ public class MostrarArticulosVista extends PlantillaVista {
 
     public void setControlador(MostrarArticulosControlador escucharBoton) {
         btnFiltrar.addActionListener(escucharBoton);
+        btnMostrar.addActionListener(escucharBoton);
         btnActualizar.addActionListener(escucharBoton);
     }
 
     public String getJcombo() {
         return (String) Jcombo.getSelectedItem();
+    }
+
+    public String getFiltros() {
+        return (String) filtros.getSelectedItem();
+    }
+
+    public String getTDato() {
+        return TDato.getText();
+    }
+    
+        public void cerrarVentana() {
+        frame.dispose();
     }
 
 }
