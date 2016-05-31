@@ -65,7 +65,7 @@ public class GestionFicheros {
                 nombre.appendChild(tnombre);
 
                 Element fechaTransaccion = document.createElement("fechaTransaccion");
-                Text tfechaTransaccion = document.createTextNode(ventas.get(i).getFechaTransacción());
+                Text tfechaTransaccion = document.createTextNode(ventas.get(i).getFechaTransaccion());
                 fechaTransaccion.appendChild(tfechaTransaccion);
 
                 Element cantidad = document.createElement("cantidad");

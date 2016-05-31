@@ -41,18 +41,10 @@ public class Venta extends Articulo {
         return idVenta;
     }
 
-    public String getFechaTransacción() {
-        Calendar c = new GregorianCalendar();
-        String dia = Integer.toString(c.get(Calendar.DATE));
-        String mes = Integer.toString(c.get(Calendar.MONTH));
-        String annio = Integer.toString(c.get(Calendar.YEAR));
-        String hora = Integer.toString(c.get(Calendar.HOUR));
-        String minuto = Integer.toString(c.get(Calendar.MINUTE));
-        String segundos = Integer.toString(c.get(Calendar.SECOND));
-        fechaTransaccion = annio + "-" + mes + "-" + dia + " " + hora + ":" + minuto + ":" + segundos;
-        System.out.println(fechaTransaccion);
+    public String getFechaTransaccion() {
         return fechaTransaccion;
     }
+    
 
     public int getCantidad() {
         return cantidad;
@@ -76,7 +68,7 @@ public class Venta extends Articulo {
 
     public static void anadirVenta(Venta venta) {
         if (ventas == null) {
-            ventas = new ArrayList<Venta>();
+            ventas = new ArrayList<>();
         }
         ventas.add(venta);
     }

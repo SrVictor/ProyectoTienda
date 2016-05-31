@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class MostrarVentasControlador implements ActionListener {
 
     private MostrarVentasVista vista;
@@ -39,6 +38,16 @@ public class MostrarVentasControlador implements ActionListener {
         } else if (evento.getActionCommand().equals(MostrarVentasVista.EXPORTAR)) {
             VentanaSeleccionarXML vsf = new VentanaSeleccionarXML();
             vsf.setVisible(true);
+        } else if (evento.getActionCommand().equals(MostrarVentasVista.FILTRAR)) {
+            try {
+                if (!vista.getTDato().equals("")){
+                MostrarVentasVista vista2 = new MostrarVentasVista(VisualizarMod.FiltroToStringVenta(vista.getFiltros(), vista.getTDato()));
+                MostrarVentasControlador mvc = new MostrarVentasControlador(vista2);
+                vista2.setControlador(mvc);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MostrarVentasControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

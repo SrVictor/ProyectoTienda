@@ -19,22 +19,31 @@ import javax.swing.table.*;
  * @author Alumno
  */
 public class MostrarVentasVista extends PlantillaVista {
-
-    JDateChooser dateChooser, dateChooser2;
-    JTable table;
-    JFrame frame;
-    JPanel panelTop;
-    JButton btnActualizar, btnExportar;
-    JLabel LDesde, LHasta;
-    String[][] articulos;
+    private JComboBox filtros;
+    private String precio;
+    private JDateChooser dateChooser, dateChooser2;
+    private JTable table;
+    private JFrame frame;
+    private static JLabel LprecioTotal, Lprecio;
+    private JPanel panelTop, panelBot;
+    private JButton btnActualizar, btnExportar, btnFiltrar;
+    private JLabel LDesde, LHasta, LFiltro, LDato;
+    private JTextField TFiltro, TDato;
     public static String ACEPTAR = "Aceptar";
     public static String EXPORTAR = "Exportar";
+    public static String FILTRAR = "Filtrar";
 
     public MostrarVentasVista(String[][] venta) throws SQLException {
+        float precioTotal = 0;
+        for (int i = 0; i < venta.length; i++) {
+            precioTotal += Float.valueOf(venta[i][4]);
+        }
+        precio = String.valueOf(precioTotal);
         frame = new JFrame("Mostrar Ventas");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.add(construyePanelTop());
         frame.add(construyePanelFrontal(venta));
+        frame.add(construyePanelBot());
         frame.pack();
         frame.setSize(1500, 700);
         frame.setVisible(true);
@@ -43,7 +52,7 @@ public class MostrarVentasVista extends PlantillaVista {
 
     JPanel construyePanelTop() throws SQLException {
         panelTop = new JPanel();
-        panelTop.setLayout(new GridLayout(4, 2, 0, 5)); //(Filas, Columnas, Espacio altura, Espacio Anchuta)
+        panelTop.setLayout(new GridLayout(2, 4, 0, 5)); //(Filas, Columnas, Espacio altura, Espacio Anchuta)
         LDesde = new JLabel("Desde (aaaa-MM-dd): ");
         dateChooser = new JDateChooser();
         dateChooser.setDateFormatString("yyyy-MM-dd");
@@ -54,6 +63,8 @@ public class MostrarVentasVista extends PlantillaVista {
         dateChooser2.setDateFormatString("yyyy-MM-dd");
         dateChooser2.setBounds(20, 20, 200, 20);
 
+        LprecioTotal = new JLabel("Precio total: ");
+        Lprecio = new JLabel(precio);
         btnActualizar = new JButton("Aceptar");
         btnActualizar.setActionCommand(ACEPTAR);
         btnExportar = new JButton("Exportar");
@@ -63,6 +74,8 @@ public class MostrarVentasVista extends PlantillaVista {
         panelTop.add(dateChooser);
         panelTop.add(LHasta);
         panelTop.add(dateChooser2);
+        panelTop.add(LprecioTotal);
+        panelTop.add(Lprecio);
         panelTop.add(btnActualizar);
         panelTop.add(btnExportar);
 
@@ -85,9 +98,30 @@ public class MostrarVentasVista extends PlantillaVista {
         // creado
         table.setRowSorter(sorter);
         JScrollPane scroll = new JScrollPane(table);
-        frame.getContentPane().add(scroll);
+        // frame.getContentPane().add(scroll);
 
         return scroll;
+    }
+
+    JPanel construyePanelBot() throws SQLException {
+        panelBot = new JPanel();
+        panelBot.setLayout(new GridLayout(1, 5, 0, 5)); //(Filas, Columnas, Espacio altura, Espacio Anchuta)
+        LFiltro = new JLabel("Filtro: ");
+        filtros = new JComboBox();
+        filtros.addItem("idVenta");
+        filtros.addItem("idArticulo");
+        filtros.addItem("cantidad");
+        filtros.addItem("precioTotal");
+        LDato = new JLabel("Dato: ");
+        TDato = new JTextField();
+        btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setActionCommand(FILTRAR);
+        panelBot.add(LFiltro);
+        panelBot.add(filtros);
+        panelBot.add(LDato);
+        panelBot.add(TDato);
+        panelBot.add(btnFiltrar);
+        return panelBot;
     }
 
     public static void generarTabla(String[][] venta) throws SQLException {
@@ -97,6 +131,7 @@ public class MostrarVentasVista extends PlantillaVista {
     public void setControlador(MostrarVentasControlador escucharBoton) {
         btnActualizar.addActionListener(escucharBoton);
         btnExportar.addActionListener(escucharBoton);
+        btnFiltrar.addActionListener(escucharBoton);
     }
 
     public String getDateChooser() {
@@ -116,5 +151,19 @@ public class MostrarVentasVista extends PlantillaVista {
     public void cerrarVentana() {
         frame.dispose();
     }
+
+    public static JLabel getLprecio() {
+        return Lprecio;
+    }
+
+    public String getFiltros() {
+        return (String) filtros.getSelectedItem();
+    }
+
+    public String getTDato() {
+        return TDato.getText();
+    }
+    
+    
 
 }

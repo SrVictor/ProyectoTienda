@@ -9,6 +9,7 @@ import Controlador.BajaArticuloControlador;
 import Controlador.MostrarArticulosControlador;
 import Modelo.Articulo;
 import Modelo.VisualizarMod;
+import static Vista.MostrarVentasVista.FILTRAR;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -22,9 +23,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -48,6 +51,7 @@ public class MostrarArticulosVista extends PlantillaVista {
     String[][] articulos;
     public static String FILTRAR = "Filtrar";
     public static String ACTUALIZAR = "Actualizar";
+    public static String MOSTRAR = "Actualizar";
 
     public MostrarArticulosVista(String[][] articulo) throws SQLException {
         frame = new JFrame("Mostrar Articulos");
@@ -109,6 +113,27 @@ public class MostrarArticulosVista extends PlantillaVista {
         JScrollPane scroll = new JScrollPane(table);
         frame.getContentPane().add(scroll);
         return scroll;
+    }
+
+    JPanel construyePanelBot() throws SQLException {
+        panelBot = new JPanel();
+        panelBot.setLayout(new GridLayout(1, 5, 0, 5)); //(Filas, Columnas, Espacio altura, Espacio Anchuta)
+        LFiltro = new JLabel("Filtro: ");
+        filtros = new JComboBox();
+        filtros.addItem("idVenta");
+        filtros.addItem("idArticulo");
+        filtros.addItem("cantidad");
+        filtros.addItem("precioTotal");
+        LDato = new JLabel("Dato: ");
+        TDato = new JTextField();
+        btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setActionCommand(FILTRAR);
+        panelBot.add(LFiltro);
+        panelBot.add(filtros);
+        panelBot.add(LDato);
+        panelBot.add(TDato);
+        panelBot.add(btnFiltrar);
+        return panelBot;
     }
 
     public static void generarTabla(String[][] articulo) throws SQLException {
