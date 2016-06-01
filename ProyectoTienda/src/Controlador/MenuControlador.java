@@ -24,6 +24,7 @@ public class MenuControlador implements ActionListener {
     private CrearUsuario vistaUsuario;
     private MostrarArticulosVista vistaArticulos;
     private MostrarVentasVista vistaVentas;
+    private ModificarArticuloTab vistaModificar;
 
     public MenuControlador(MenuPrincipal vista) {
         this.vista = vista;
@@ -57,11 +58,9 @@ public class MenuControlador implements ActionListener {
             }
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.MODIFICARARTICULO)) {
-            /*seleccionArticuloControlador.setMenu("Modificar Articulo");
-            vistaSeleccion = new SeleccionArticulo();
-            SeleccionArticuloControlador sac = new SeleccionArticuloControlador(vistaSeleccion);
-            vistaSeleccion.setControlador(sac);
-            vistaSeleccion.arranca();*/
+            vistaModificar = new ModificarArticuloTab();
+            ModificarControladorTab sac = new ModificarControladorTab(vistaModificar);
+            vistaModificar.setControlador(sac);
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.IMPORTARARTICULOS)) {
             VentanaSeleccionarTXT vstxt = new VentanaSeleccionarTXT();

@@ -83,8 +83,6 @@ public class Pelicula extends Articulo {
     }
 
     public static ArrayList<Pelicula> getPeliculas() throws SQLException {
-
-        VisualizarMod.genArrayPeliculas();
         return peliculas;
     }
 
@@ -93,6 +91,9 @@ public class Pelicula extends Articulo {
     }
 
     public static void anadirPelicula(Pelicula pelicula) {
+        if (peliculas == null) {
+            peliculas = new ArrayList<Pelicula>();
+        }
         peliculas.add(pelicula);
     }
 

@@ -8,6 +8,10 @@ package Vista;
 import Controlador.*;
 import Modelo.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 /**
@@ -38,6 +42,11 @@ public class MenuPrincipal extends PlantillaVista {
     public MenuPrincipal() {
         JPanel mainPanel = new JPanel();
         frame = new JFrame();
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                GenConexionMod.cerrarConexion();
+            }
+        });
         btnCrearUsuario = new JButton("Crear Usuario");
         btnCrearUsuario.setActionCommand("Crear Usuario");
         btnAltaArticulo = new JButton("Alta Articulo");
@@ -96,4 +105,9 @@ public class MenuPrincipal extends PlantillaVista {
         frame.setVisible(true);
     }
 
+    public void windowClosed(WindowEvent e) {
+        //This will only be seen on standard output.
+        System.out.println("aaaaaaaaa");
+        GenConexionMod.cerrarConexion();
+    }
 }
