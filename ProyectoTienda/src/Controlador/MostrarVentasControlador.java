@@ -37,7 +37,6 @@ public class MostrarVentasControlador implements ActionListener {
 
         } else if (evento.getActionCommand().equals(MostrarVentasVista.EXPORTAR)) {
             VentanaSeleccionarXML vsf = new VentanaSeleccionarXML();
-            vsf.setVisible(true);
         } else if (evento.getActionCommand().equals(MostrarVentasVista.FILTRAR)) {
             try {
                 if (!vista.getTDato().equals("")){

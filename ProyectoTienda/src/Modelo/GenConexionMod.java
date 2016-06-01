@@ -64,10 +64,10 @@ public class GenConexionMod {
     /**
      * Cierra la conexion con el servidor.
      */
-    public void cerrarConexion() {
+    public static void cerrarConexion() {
         try {
-            conexion.close();
             System.out.println("Conexión cerrada.");
+            conexion.close();
         } catch (SQLException ex) {
             System.err.println("Se ha producido un error, consulta al administrador de la base de datos.");
             System.out.println(ex.getMessage());
@@ -82,7 +82,7 @@ public class GenConexionMod {
      * @return
      */
     public boolean comprobarContrasena(String pass) {
-        if (pass.matches(regex) && pass.length()>=8) {
+        if (pass.matches(regex) && pass.length() >= 8) {
             System.out.println("CORRECTO!");
             return true;
         } else {
@@ -104,17 +104,17 @@ public class GenConexionMod {
         return rs;
     }
 
-    public boolean crearUsuario(String usuario, String contrasena,String cargo, String nombre) throws SQLException {
+    public boolean crearUsuario(String usuario, String contrasena, String cargo, String nombre) throws SQLException {
         if (comprobarContrasena(contrasena)) {
-            GenConexionMod.ejecutaUpdate("INSERT INTO `usuarios` (`idEmpleado`, `Usuario`, `Contrasena`, `Cargo`, `Nombre`) VALUES (NULL, '"+ usuario+ "' ,'" +contrasena+"' ,'"+cargo+"' , '" +nombre+"');");
+            GenConexionMod.ejecutaUpdate("INSERT INTO `usuarios` (`idEmpleado`, `Usuario`, `Contrasena`, `Cargo`, `Nombre`) VALUES (NULL, '" + usuario + "' ,'" + contrasena + "' ,'" + cargo + "' , '" + nombre + "');");
             return true;
         } else {
             PlantillaVista.mostrarInfo2("La contraseña no es adecuada.");
             return false;
         }
     }
-    
-      public static int ejecutaUpdate(String sentenciaSQL) {
+
+    public static int ejecutaUpdate(String sentenciaSQL) {
         int n = 0;
         try {
 

@@ -15,7 +15,7 @@ import javax.swing.*;
  * @author David
  */
 public class MenuPrincipal extends PlantillaVista {
-    
+
     public static final String ALTAARTICULO = "Alta Articulo";
     public static final String BAJAPARTICULO = "Baja Articulo";
     public static final String MODIFICARARTICULO = "Modificar Articulo";
@@ -38,31 +38,32 @@ public class MenuPrincipal extends PlantillaVista {
     public MenuPrincipal() {
         JPanel mainPanel = new JPanel();
         frame = new JFrame();
+        btnCrearUsuario = new JButton("Crear Usuario");
+        btnCrearUsuario.setActionCommand("Crear Usuario");
+        btnAltaArticulo = new JButton("Alta Articulo");
+        btnAltaArticulo.setActionCommand("Alta Articulo");
+        btnBajaArticulo = new JButton("Baja Articulo");
+        btnBajaArticulo.setActionCommand("Baja Articulo");
+        btnModificarArticulo = new JButton("Modificar Articulo");
+        btnModificarArticulo.setActionCommand("Modificar Articulo");
+        btnImportarArticulos = new JButton("Importar Articulos");
+        btnImportarArticulos.setActionCommand("Importar Articulos");
+        btnRellenarStock = new JButton("Rellenar Stock");
+        btnRellenarStock.setActionCommand("Rellenar Stock");
 
         if (GenConexionMod.getCargo().equals("Gerente")) {
             mainPanel.setLayout(new GridLayout(9, 1, 5, 5));
-            btnCrearUsuario = new JButton("Crear Usuario");
-            btnCrearUsuario.setActionCommand("Crear Usuario");
-            btnAltaArticulo = new JButton("Alta Articulo");
-            btnAltaArticulo.setActionCommand("Alta Articulo");
-            btnBajaArticulo = new JButton("Baja Articulo");
-            btnBajaArticulo.setActionCommand("Baja Articulo");
-            btnModificarArticulo = new JButton("Modificar Articulo");
-            btnModificarArticulo.setActionCommand("Modificar Articulo");
-            btnImportarArticulos = new JButton("Importar Articulos");
-            btnImportarArticulos.setActionCommand("Importar Articulos");
-            btnRellenarStock = new JButton("Rellenar Stock");
-            btnRellenarStock.setActionCommand("Rellenar Stock");
+
             mainPanel.add(btnCrearUsuario);
             mainPanel.add(btnAltaArticulo);
             mainPanel.add(btnBajaArticulo);
             mainPanel.add(btnModificarArticulo);
             mainPanel.add(btnImportarArticulos);
             mainPanel.add(btnRellenarStock);
-        } else{
+        } else {
             mainPanel.setLayout(new GridLayout(3, 1, 5, 5));
         }
-        
+
         btnVenderArticulo = new JButton("Vender Articulo");
         btnVenderArticulo.setActionCommand("Vender Articulo");
         btnVisualizarArticulos = new JButton("Visualizar Articulos");

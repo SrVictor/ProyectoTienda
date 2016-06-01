@@ -1,5 +1,6 @@
 package Modelo;
 
+import Vista.PlantillaVista;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,10 +41,9 @@ public class Articulo {
 
     public Articulo(int idArticulo, int stock) {
         this.idArticulo = idArticulo;
-        this.stock=stock;
+        this.stock = stock;
     }
 
-    
     /**
      * Devuelve el id del articulo a través del conocimiento del nombre.
      *
@@ -96,6 +96,15 @@ public class Articulo {
         return combo;
     }
 
+    public static boolean crearArticulo(Articulo articulo) {
+        if (articulo.getNombre().equals("") || articulo.getClasificacion().equals("") || articulo.getGenero().equals("") || articulo.getProductora().equals("")) {
+            PlantillaVista.mostrarInfo2("Algún campo está vacio!");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public int getIdArticulo() {
         return idArticulo;
     }
@@ -133,12 +142,11 @@ public class Articulo {
     }
 
     public static void anadirArticulo(Articulo articulo) {
-         if (articulos==null){
+        if (articulos == null) {
             articulos = new ArrayList<Articulo>();
         }
         articulos.add(articulo);
     }
-
 
     public void setIdArticulo(int idArticulo) {
         this.idArticulo = idArticulo;
@@ -169,14 +177,12 @@ public class Articulo {
     }
 
     public static String[][] getArticul() throws SQLException {
-       VisualizarMod.ArticulosToArray();
+        VisualizarMod.ArticulosToArray();
         return articul;
     }
 
     public static void setArticul(String[][] articul) {
         Articulo.articul = articul;
     }
-    
-    
 
 }

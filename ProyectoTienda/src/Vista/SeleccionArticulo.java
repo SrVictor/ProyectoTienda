@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+/*package Vista;
 
 import Controlador.SeleccionArticuloControlador;
 import Controlador.UsuariosControlador;
@@ -22,7 +22,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author David
  */
-public class SeleccionArticulo extends PlantillaVista {
+/*public class SeleccionArticulo extends PlantillaVista {
     public static final String SERIE = "Serie";
     public static final String PELICULA = "Pelicula";
     private static JButton btnSerie;
@@ -32,7 +32,7 @@ public class SeleccionArticulo extends PlantillaVista {
         frame = new JFrame();
         JPanel mainPanel = new JPanel();
 
-        mainPanel.setLayout(new GridLayout(3, 2, 5, 5));
+        mainPanel.setLayout(new GridLayout(2, 2, 5, 5));
 
         btnSerie = new JButton("Serie");
         btnSerie.setActionCommand("Serie");
@@ -54,3 +54,4 @@ public class SeleccionArticulo extends PlantillaVista {
     } 
 
 }
+*/

@@ -17,7 +17,7 @@ import Vista.MostrarArticulosVista;
 public class MenuControlador implements ActionListener {
 
     private MenuPrincipal vista;
-    private SeleccionArticulo vistaSeleccion;
+    private AltaArticuloTab vistaTab;
     private BajaArticulo vistaBaja;
     private RellenarStock vistaRellenar;
     private Vender vistaVender;
@@ -36,14 +36,17 @@ public class MenuControlador implements ActionListener {
             CrearUsuarioControlador cuc = new CrearUsuarioControlador(vistaUsuario);
             vistaUsuario.setControlador(cuc);
             vistaUsuario.arranca();
-            
+
         } else if (evento.getActionCommand().equals(MenuPrincipal.ALTAARTICULO)) {
-            SeleccionArticuloControlador.setMenu("Alta Articulo");
+            vistaTab = new AltaArticuloTab();
+            AltaControladorTab sac = new AltaControladorTab(vistaTab);
+            vistaTab.setControlador(sac);
+
+            /*SeleccionArticuloControlador.setMenu("Alta Articulo");
             vistaSeleccion = new SeleccionArticulo();
             SeleccionArticuloControlador sac = new SeleccionArticuloControlador(vistaSeleccion);
             vistaSeleccion.setControlador(sac);
-            vistaSeleccion.arranca();
-
+            vistaSeleccion.arranca();*/
         } else if (evento.getActionCommand().equals(MenuPrincipal.BAJAPARTICULO)) {
             try {
                 vistaBaja = new BajaArticulo(Articulo.rellenarComboBoxID());
@@ -54,11 +57,11 @@ public class MenuControlador implements ActionListener {
             }
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.MODIFICARARTICULO)) {
-            SeleccionArticuloControlador.setMenu("Modificar Articulo");
+            /*seleccionArticuloControlador.setMenu("Modificar Articulo");
             vistaSeleccion = new SeleccionArticulo();
             SeleccionArticuloControlador sac = new SeleccionArticuloControlador(vistaSeleccion);
             vistaSeleccion.setControlador(sac);
-            vistaSeleccion.arranca();
+            vistaSeleccion.arranca();*/
 
         } else if (evento.getActionCommand().equals(MenuPrincipal.IMPORTARARTICULOS)) {
             VentanaSeleccionarTXT vstxt = new VentanaSeleccionarTXT();

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class VentanaSeleccionarXML extends JFrame {
+public class VentanaSeleccionarXML {
 
     /**
      * @return the fichero
@@ -57,11 +57,9 @@ public class VentanaSeleccionarXML extends JFrame {
 
                 //Ecribe la ruta del fichero seleccionado en el campo de texto
                 textField.setText(fichero.getAbsolutePath());
-                
+
                 urlFichero = fichero.getAbsolutePath();
 
-            } else {
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         }
     }
@@ -71,6 +69,7 @@ public class VentanaSeleccionarXML extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                
                 GestionFicheros.generarXML(urlFichero);
                 frame.dispose();
             } catch (Exception ex) {
@@ -85,11 +84,11 @@ public class VentanaSeleccionarXML extends JFrame {
      */
     public VentanaSeleccionarXML() {
         //Parametros asociados a la ventana
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 150);
+        frame = new JFrame();
+        frame.setBounds(100, 100, 450, 150);
         contentPane = new JPanel();
         contentPane.setLayout(null);
-        setContentPane(contentPane);
+        frame.setContentPane(contentPane);
 
         textField = new JTextField();
         textField.setToolTipText("Inserta la ruta del fichero de texto");
@@ -104,9 +103,10 @@ public class VentanaSeleccionarXML extends JFrame {
         JButton btAceptar = new JButton("Aceptar");
         btAceptar.setBounds(288, 60, 109, 23);
         contentPane.add(btAceptar);
-
+        frame.setLocationRelativeTo(null);
         btSeleccionar.addActionListener(new VentanaSeleccionarXML.EventoSeleccionar());
         btAceptar.addActionListener(new VentanaSeleccionarXML.EventoAceptar());
+        frame.setVisible(true);
 
     }
 }

@@ -1,5 +1,6 @@
 package Modelo;
 
+import Vista.PlantillaVista;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -39,8 +40,6 @@ public class Pelicula extends Articulo {
 
     public Pelicula() {
     }
-    
-    
 
     public static JComboBox rellenarComboBoxID() throws SQLException {
         VisualizarMod.genArrayPeliculas();
@@ -103,7 +102,15 @@ public class Pelicula extends Articulo {
     }
 
     public static void setPeliculass(String[][] pel) {
-        pelicula=pel;
+        pelicula = pel;
     }
 
+    public static boolean crearPelicula(Pelicula pelicula) {
+        if (pelicula.getNombreDirector().equals("") || pelicula.getPais().equals("")) {
+            PlantillaVista.mostrarInfo2("Algún campo está vacio!");
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
