@@ -22,11 +22,11 @@ import javax.swing.table.*;
  */
 public class MostrarExportacion extends PlantillaVista {
 
-    JTable table;
-    JFrame frame;
-    JPanel panelTop;
-    JButton btnCancelar;
-    String[][] articulos;
+    private JTable table;
+    private JFrame frame;
+    private JPanel panelTop;
+    private JButton btnCancelar;
+    private String[][] articulos;
     public static final String CANCELAR = "Cancelar";
 
     public MostrarExportacion(String[][] archivo) throws SQLException {

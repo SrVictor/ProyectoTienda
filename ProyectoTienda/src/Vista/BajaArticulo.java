@@ -22,8 +22,8 @@ import javax.swing.*;
 public class BajaArticulo extends PlantillaVista {
 
     private static JComboBox Jcombo;
-    JFrame frame;
-    JPanel topPanel;
+    private JFrame frame;
+    private JPanel topPanel;
     public static final String ACEPTAR = "Aceptar";
     public static final String CANCELAR = "Cancelar";
     private static JButton btnAceptar;

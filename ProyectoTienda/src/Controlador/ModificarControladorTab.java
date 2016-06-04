@@ -11,8 +11,8 @@ import Modelo.ModificacionArticulosModelo;
 import Vista.AltaArticuloTab;
 import Vista.Login;
 import Vista.MenuPrincipal;
-import Vista.ModificarArticulo;
 import Vista.ModificarArticuloTab;
+import Vista.PlantillaVista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ public class ModificarControladorTab implements ActionListener {
 
     private ModificarArticuloTab vista;
     private ModificacionArticulosModelo modelo;
-    
+
     public ModificarControladorTab(ModificarArticuloTab vista) {
         this.vista = vista;
     }
@@ -32,24 +32,37 @@ public class ModificarControladorTab implements ActionListener {
     public void actionPerformed(ActionEvent evento) {
         modelo = new ModificacionArticulosModelo();
         if (evento.getActionCommand().equals("Modificar Articulo")) {
-            modelo.modificarArticulo(vista.generarArticulo());
-            vista.cerrarVentana();
-
-        } else if (evento.getActionCommand().equals("Aceptar Serie")) {
-            modelo.modificarSerie(vista.generarSerie());
-            vista.cerrarVentana();
-
-        }else if (evento.getActionCommand().equals("Aceptar Pelicula")) {
-            try {
-                modelo.modificarPelicula(vista.generarPelicula());
+            if (modelo.modificarArticulo(vista.generarArticulo())) {
+                PlantillaVista.mostrarInfo2("Se ha modificacdo correctamente el artículo!");
                 vista.cerrarVentana();
+                ModificarArticuloTab mat = new ModificarArticuloTab();
+                ModificarControladorTab mct = new ModificarControladorTab(mat);
+                mat.setControlador(mct);
+            }
+
+        } else if (evento.getActionCommand().equals("Modificar Serie")) {
+            if (modelo.modificarSerie(vista.generarSerie())) {
+                PlantillaVista.mostrarInfo2("Se ha modificacdo correctamente el artículo!");
+                vista.cerrarVentana();
+                ModificarArticuloTab mat = new ModificarArticuloTab();
+                ModificarControladorTab mct = new ModificarControladorTab(mat);
+                mat.setControlador(mct);
+            }
+
+        } else if (evento.getActionCommand().equals("Modificar Pelicula")) {
+            try {
+                if (modelo.modificarPelicula(vista.generarPelicula())) {
+                    PlantillaVista.mostrarInfo2("Se ha modificacdo correctamente el artículo!");
+                    vista.cerrarVentana();
+                    ModificarArticuloTab mat = new ModificarArticuloTab();
+                    ModificarControladorTab mct = new ModificarControladorTab(mat);
+                    mat.setControlador(mct);
+                }
             } catch (ParseException ex) {
                 Logger.getLogger(ModificarControladorTab.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
-        
-        else if (evento.getActionCommand().equals(AltaArticuloTab.CANCELAR)) {
+        } else if (evento.getActionCommand().equals(AltaArticuloTab.CANCELAR)) {
             vista.cerrarVentana();
         }
 

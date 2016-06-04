@@ -161,7 +161,12 @@ public class AltaBajaArticulo {
             return false;
         }
     }
-
+/**
+ * Este metodo introduce una lista de articulos en la base de datos.
+ * @param articulos
+ * @return Devuelve true si se ejecuta con exito.
+ * @throws SQLException 
+ */
     public static boolean altaArticulos(ArrayList<Articulo> articulos) throws SQLException {
         try {
             Statement st = GenConexionMod.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);

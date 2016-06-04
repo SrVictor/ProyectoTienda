@@ -8,8 +8,8 @@ import com.toedter.calendar.JCalendar;
 
 public class Principal extends JApplet {
 
-    JCalendar calendario;
-    JTextField fecha;
+    private JCalendar calendario;
+    private JTextField fecha;
 
     public void init() {
         calendario = new JCalendar();

@@ -62,6 +62,7 @@ public class ModificacionArticulosModelo {
      * @throws ParseException
      */
     public boolean modificarPelicula(Pelicula pelicula) throws ParseException {
+        System.out.println("Fecha: " + pelicula.getFechaLanz());
         DateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date fecha = null;
         java.sql.Date fecha2 = null;

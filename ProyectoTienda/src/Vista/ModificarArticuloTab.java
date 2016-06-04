@@ -35,7 +35,7 @@ public class ModificarArticuloTab extends PlantillaVista {
     private JTextField Tnombre, Tproductora, Tclasificacion, Tgenero, Tstock, Tprecio;
     private JTextField Tnombres, Tproductoras, Tclasificacions, Tgeneros, Tstocks, Tprecios;
     private JTextField Tnombrep, Tproductorap, Tclasificacionp, Tgenerop, Tstockp, Tpreciop;
-    private JTextField TnombreDirector, Tpais, TfechaLanz, Tduracion;
+    private JTextField TnombreDirector, Tpais, Tduracion;
     private JTextField TnCapitulos, TnTemporadas;
     private static JLabel Lnombre, Lproductora, Lclasificacion, Lgenero, Lstock, Lprecio;
     private static JLabel LnombreDirector, Lpais, LfechaLanz, Lduracion;
@@ -123,7 +123,7 @@ public class ModificarArticuloTab extends PlantillaVista {
             Lstock = new JLabel("Stock: ");
             Tstock = new JTextField(4);
             Lprecio = new JLabel("Precio: ");
-            Tprecio = new JTextField(3);
+            Tprecio = new JTextField(5);
             btnModificar = new JButton("Modificar");
             btnModificar.setActionCommand("Modificar Articulo");
             btnCancelar = new JButton("Cancelar");
@@ -193,7 +193,7 @@ public class ModificarArticuloTab extends PlantillaVista {
             Lstock = new JLabel("Stock: ");
             Tstocks = new JTextField(4);
             Lprecio = new JLabel("Precio: ");
-            Tprecios = new JTextField(3);
+            Tprecios = new JTextField(5);
             LnCapitulos = new JLabel("nCapitulos: ");
             TnCapitulos = new JTextField(4);
             LnTemporadas = new JLabel("nTemporadas:");
@@ -282,7 +282,7 @@ public class ModificarArticuloTab extends PlantillaVista {
             Lstock = new JLabel("Stock: ");
             Tstockp = new JTextField(4);
             Lprecio = new JLabel("Precio: ");
-            Tpreciop = new JTextField(3);
+            Tpreciop = new JTextField(5);
             LnombreDirector = new JLabel("Nombre Director: ");
             TnombreDirector = new JTextField(20);
             Lpais = new JLabel("Pais:");
@@ -291,7 +291,7 @@ public class ModificarArticuloTab extends PlantillaVista {
             dateChooser = new JDateChooser();
             dateChooser.setDateFormatString("yyyy-MM-dd");
             dateChooser.setBounds(20, 20, 200, 20);
-            Lduracion = new JLabel("Duracion:");
+            Lduracion = new JLabel("Duracion (minutos):");
             Tduracion = new JTextField(3);
             btnModificarp = new JButton("Modificar");
             btnModificarp.setActionCommand("Modificar Pelicula");

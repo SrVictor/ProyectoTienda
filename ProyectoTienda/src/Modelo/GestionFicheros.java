@@ -94,8 +94,8 @@ public class GestionFicheros {
         }
     }
 
-    public static int longitudTXT() throws FileNotFoundException, IOException {
-        FileReader fr = new FileReader("productos.txt");
+    public static int longitudTXT(String ruta) throws FileNotFoundException, IOException {
+        FileReader fr = new FileReader(ruta);
         BufferedReader br = new BufferedReader(fr);
         int o = 0;
         while ((br.readLine()) != null) {
@@ -107,7 +107,7 @@ public class GestionFicheros {
     public static String[][] leerFicheroTexto(String ruta) throws FileNotFoundException, IOException, SQLException {
         FileReader fr = new FileReader(ruta);
         BufferedReader br = new BufferedReader(fr);
-        String[][] articuloss = new String[longitudTXT()][6];
+        String[][] articuloss = new String[longitudTXT(ruta)][6];
         br.readLine();
         br.readLine();
         br.readLine();

@@ -96,6 +96,11 @@ public class Articulo {
         return combo;
     }
 
+    /**
+     * Comprueba que los articulos no están con campos vacios.
+     * @param articulo
+     * @return devuelve true si no están vacios.
+     */
     public static boolean crearArticulo(Articulo articulo) {
         if (articulo.getNombre().equals("") || articulo.getClasificacion().equals("") || articulo.getGenero().equals("") || articulo.getProductora().equals("")) {
             PlantillaVista.mostrarInfo2("Algún campo está vacio!");

@@ -76,7 +76,7 @@ public class MostrarPeliculasVista extends PlantillaVista {
 
         Jcombo = new JComboBox();
         Jcombo.addItem("Articulos");
-        Jcombo.addItem("Peliculas");
+        Jcombo.addItem("Series");
 
         btnActualizar = new JButton("Actualizar");
         btnActualizar.setActionCommand("Actualizar");

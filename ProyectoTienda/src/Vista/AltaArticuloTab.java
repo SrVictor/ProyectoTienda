@@ -20,8 +20,8 @@ import javax.swing.*;
  */
 public class AltaArticuloTab extends PlantillaVista {
 
-    JFrame frame;
-    JPanel topPanel, panelSerie, panelPelicula, panelBot;
+    private JFrame frame;
+    private JPanel topPanel, panelSerie, panelPelicula, panelBot;
     public static final String ACEPTAR = "Aceptar";
     public static final String CANCELAR = "Cancelar";
     private static JButton btnAceptar, btnAceptars, btnAceptarp;
@@ -92,7 +92,7 @@ public class AltaArticuloTab extends PlantillaVista {
         Lstock = new JLabel("Stock: ");
         Tstock = new JTextField(4);
         Lprecio = new JLabel("Precio: ");
-        Tprecio = new JTextField(3);
+        Tprecio = new JTextField(5);
         btnAceptar = new JButton("Aceptar");
         btnAceptar.setActionCommand("Aceptar Articulo");
         btnCancelar = new JButton("Cancelar");
@@ -129,7 +129,7 @@ public class AltaArticuloTab extends PlantillaVista {
         Lstock = new JLabel("Stock: ");
         Tstocks = new JTextField(4);
         Lprecio = new JLabel("Precio: ");
-        Tprecios = new JTextField(3);
+        Tprecios = new JTextField(5);
         LnCapitulos = new JLabel("nCapitulos: ");
         TnCapitulos = new JTextField(4);
         LnTemporadas = new JLabel("nTemporadas:");
@@ -174,7 +174,7 @@ public class AltaArticuloTab extends PlantillaVista {
         Lstock = new JLabel("Stock: ");
         Tstockp = new JTextField(4);
         Lprecio = new JLabel("Precio: ");
-        Tpreciop = new JTextField(3);
+        Tpreciop = new JTextField(5);
         LnombreDirector = new JLabel("Nombre Director: ");
         TnombreDirector = new JTextField(20);
         Lpais = new JLabel("Pais:");

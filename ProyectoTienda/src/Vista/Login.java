@@ -45,7 +45,7 @@ public class Login extends PlantillaVista {
         TNombre = new JTextField(20);
         TNombre.setText("Gerente");
         TContrasena = new JPasswordField(20);
-        TContrasena.setText("gerente");
+        TContrasena.setText("GGagGG00$");
         btnAceptar = new JButton("Aceptar");
         btnAceptar.setActionCommand("Aceptar");
         btnCancelar = new JButton("Cancelar");
